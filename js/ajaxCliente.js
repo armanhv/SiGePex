@@ -1,54 +1,60 @@
 /******************* Metodos CRUD para cliente ***************************/
 function insertarCliente() {
 
-    var idCliente = 0;
+    if (verificarCliente()) {
+        var parametros = {
+            "nombreCliente": depurarTexto($('#txtNombreCliente').val()),
+            "primerApellido": depurarTexto($('#txtPrimerApellido').val()),
+            "segundoApellido": depurarTexto($('#txtSegundoApellido').val()),
+            "direccion": $('#txtDireccion').val()
+        };
 
-    var parametros = {
-        "idCliente": idCliente.value,
-        "nombreCliente": $('#txtNombreCliente').val(),
-        "primerApellido": $('#txtPrimerApellido').val(),
-        "segundoApellido": $('#txtSegundoApellido').val(),
-	"direccion": $('#txtDireccion').val()
-    };
-
-   // alert($('#txtNumeroCuenta').val());
-
-    $.ajax({
-        data: parametros,
-        url: 'insertarCliente.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            obtenerClientes();
-            $("#resultado").html(response);
+        if (confirm("¿ Desea ingresar este cliente ?")) {
+            $.ajax({
+                data: parametros,
+                url: '../../actions/cliente/insertarCliente.php',
+                type: 'post',
+                success: function (response) {
+                    //se recarga el combo y limpan los espacios
+                    $('input[type=text]').val("");
+                    $('#txtDireccion').val("");
+                    obtenerClientes();
+                    $("#resultado").html(response);
+                }
+            });
         }
-    });
-
+    }
 }
 
 function actualizarCliente() {
 
-    var idCliente = document.getElementById("cbxCliente").value;
-    var parametros = {
-        "idCliente": idCliente,
-        "nombreCliente": $('#txtNombreCliente').val(),
-        "primerApellido": $('#txtPrimerApellido').val(),
-        "segundoApellido": $('#txtSegundoApellido').val(),
-	"direccion": $('#txtDireccion').val()
-    };
+    if (verificarCliente()) {
 
-    $.ajax({
-        data: parametros,
-        url: 'actualizarClientes.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            obtenerClientes();
-            $("#resultado").html(response);
+        var idCliente = document.getElementById("cbxCliente").value;
+
+        var parametros = {
+            "idCliente": idCliente,
+            "nombreCliente": $('#txtNombreCliente').val(),
+            "primerApellido": $('#txtPrimerApellido').val(),
+            "segundoApellido": $('#txtSegundoApellido').val(),
+            "direccion": $('#txtDireccion').val()
+        };
+
+        if (confirm("¿ Desea modificar este cliente ?")) {
+            $.ajax({
+                data: parametros,
+                url: '../../actions/cliente/actualizarClientes.php',
+                type: 'post',
+                success: function (response) {
+                    //se recarga el combo y limpan los espacios
+                    $('input[type=text]').val("");
+                    $('#txtDireccion').val("");
+                    obtenerClientes();
+                    $("#resultado").html(response);
+                }
+            });
         }
-    });
+    }
 }
 
 function borrarCliente() {
@@ -60,65 +66,28 @@ function borrarCliente() {
 
     $.ajax({
         data: parametros,
-        url: 'borrarCliente.php',
+        url: '../../actions/cliente/borrarCliente.php',
         type: 'post',
         success: function (response) {
             //se recarga el combo y limpan los espacios
             $('input[type=text]').val("");
+            $('#txtDireccion').val("");
             obtenerClientes();
             $("#resultado").html(response);
         }
     });
 }
-//function obtenerClientes() {
-//    $.ajax({
-//        data: '',
-//        url: 'obtenerCliente.php',
-//        type: 'post',
-//        success: function (response) {
-//            $("#clientes").html(response);
-//        }
-//
-//
-//    });
-//}
 
 function obtenerClientes() {
     $.ajax({
         data: '',
-        url: '../../actions/cliente/obtenerClientes.php',
+        url: '../../actions/cliente/obtenerCliente.php',
         type: 'post',
         success: function (response) {
-            $("#cliente").html(response);
+            $("#clientes").html(response);
         }
-    });
-}
 
 
-function buscarCliente() {
-
-    var iID = document.getElementById("cbxCliente").value;
-    
-    $.ajax({
-        url: "../../actions/cliente/buscarClienteAction.php",
-        type: "POST",
-        datatype: "JSON",
-        data: {
-            valueAction: 1,
-            id: iID
-        },
-        success: function (msg)
-        {
-            var txtNombre = document.getElementById("txtIdCliente");
-            var txtPrimerApellido = document.getElementById("txtPrimerApellido");
-            var txtSegundoApellido = document.getElementById("txtSegundoApellido");
-            var txtDireccion = document.getElementById("txtDireccion");
-             
-            txtNombre.value = msg.nombreCliente;
-            txtPrimerApellido.value = msg.primerApellidoCliente;
-            txtSegundoApellido.value = msg.segundoApellidoCliente;
-            txtDireccion.value = msg.direccion;
-        }
     });
 }
 
@@ -132,11 +101,49 @@ function cargarCliente() {
 
     $.ajax({
         data: parametros,
-        url: 'cargarClientes.php',
+        url: '../../actions/cliente/cargarClientes.php',
         type: 'post',
         success: function (response) {
             $("#tablaCliente").html(response);
         }
     });
+}
+
+
+/********************* Seccion de validaciones ************************/
+function verificarCliente() {
+    var expresion = /^[a-zA-Z ÑÁÉÍÓÚñáéíóú]*$/; // exprecion para solo letras
+
+    var nombre = $('#txtNombreCliente').val();
+    var primerApellido = $('#txtPrimerApellido').val();
+    var segundoApellido = $('#txtSegundoApellido').val();
+    var direccion = $('#txtDireccion').val();
+
+
+    if (!(nombre.match(expresion)) || ($.trim(nombre) === '')) {
+        mandarMensaje("El nombre es inválido");
+        txtNombreCliente.focus();
+        return false;
+    }
+
+    if (!(primerApellido.match(expresion)) || ($.trim(primerApellido) === '')) {
+        mandarMensaje("El primer apellido es inválido");
+        txtPrimerApellido.focus();
+        return false;
+    }
+
+    if (!(segundoApellido.match(expresion)) || ($.trim(segundoApellido) === '')) {
+        mandarMensaje("El segundo apellido es inválido");
+        txtSegundoApellido.focus();
+        return false;
+    }
+
+    if ($.trim(direccion) === '') {
+        mandarMensaje("La dirección es inválida");
+        txtDireccion.focus();
+        return false;
+    }
+
+    return true;
 }
 

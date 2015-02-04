@@ -1,6 +1,6 @@
 <?php
-include_once '../../data/BaseDatos.php';
-//include 'BaseDatos.php';
+
+include 'baseDatos.php';
 include '../../domain/cliente.php';
 include '../../utilidades/utilidadesGenerales.php';
 
@@ -11,12 +11,12 @@ class clienteData {
 
     public function clienteData() {
         $this->conexion = new BaseDatos();
-        $this->utilidad= new utilidadesGenerales($this->conexion);
+        $this->utilidad = new utilidadesGenerales($this->conexion);
     }
 
     public function insertarCliente($objCliente) {
 
-        $query = "INSERT INTO btcliente VALUES (" .$this->utilidad->generarIdAutoIncremental('idCliente','btcliente').", '". $objCliente->nombreCliente . "', '" . $objCliente->primerApellido ."','".$objCliente->segundoApellido. "','".$objCliente->direccion."');";
+        $query = "INSERT INTO btcliente VALUES (" . $this->utilidad->generarIdAutoIncremental('idCliente', 'btcliente') . ", '" . $objCliente->nombreCliente . "', '" . $objCliente->primerApellido . "','" . $objCliente->segundoApellido . "','" . $objCliente->direccion . "');";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
 
@@ -30,12 +30,12 @@ class clienteData {
     }
 
     public function actualizarCliente($objCliente) {
-		
-        $query = "update btcliente set nombreCliente='" . $objCliente->nombreCliente . "', primerApellido='" . $objCliente->primerApellido.
-        "', segundoApellido='" . $objCliente->segundoApellido."', direccion='".$objCliente->direccion. "' where idCliente=" . $objCliente->idCliente.";";
-        
-		$result = mysqli_query($this->conexion->abrirConexion(), $query);
-		
+
+        $query = "update btcliente set nombreCliente='" . $objCliente->nombreCliente . "', primerApellido='" . $objCliente->primerApellido .
+                "', segundoApellido='" . $objCliente->segundoApellido . "', direccion='" . $objCliente->direccion . "' where idCliente=" . $objCliente->idCliente . ";";
+
+        $result = mysqli_query($this->conexion->abrirConexion(), $query);
+
         $this->conexion->cerrarConexion();
 
         if ($result) {
@@ -59,7 +59,7 @@ class clienteData {
         }
     }
 
-    public function obtenerClientes() {
+    public function obtenerCliente() {
         $query = "select* from btcliente";
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
         $arrayCliente = [];
@@ -85,8 +85,6 @@ class clienteData {
         $this->conexion->cerrarConexion();
         return $cliente;
     }
-
-    
 
 }
 

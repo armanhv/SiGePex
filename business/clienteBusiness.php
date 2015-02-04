@@ -26,8 +26,8 @@ class clienteBusiness {
         return $resultado;
     }
 
-    public function obtenerClientes() {
-        $resultado = $this->clienteData->obtenerClientes();
+    public function obtenerCliente() {
+        $resultado = $this->clienteData->obtenerCliente();
         return $resultado;
     }
     
