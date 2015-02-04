@@ -19,5 +19,9 @@
         <br>
         <a href="presentation/banco/bancoPresentacion.php">Banco</a>
         <br>
+        <a href="presentation/cliente/clientePresentacion.php">Cliente</a>
+        <br>
+        <a href="presentation/ingresos/ingresosPresentacion.php">Ingreso</a>
+        <br>
     </body>
 </html>

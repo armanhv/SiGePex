@@ -7,7 +7,6 @@
         <script type="text/javascript" src="../../js/ajaxRol.js"></script>
         <script type="text/javascript" src="../../js/ajaxTelefono.js"></script>
         <script type="text/javascript" src="../../js/ajaxLicencia.js"></script> 
-        <script type="text/javascript" src="../../js/jquery-2-1-3.js"></script>
 
         <script type="text/javascript" src="../../js/validacion/validarEmail.js"></script>
         <script type="text/javascript" src="../../js/validacion/mascaraTelefono.js"></script>
@@ -30,15 +29,16 @@
 
     </head>
     <body style="" onload="obtenerRoles();
-            obtenerEmpleados();
+            obtenerEmpleados22();
             mascaraCedula();
             moneda()">
         <form name="empleado">
             <p>Mantenimiento de Empleados</p>
-            <label for="empleados">Empleados:</label>
-            <span id="empleados"></span>
+            
             <table>
                 <tr>
+                    <td><label for="empleados">Empleados:</label></td>
+                    <td><span id="empleados"></span></td>
                     <td><label for="rol">Rol</label></td>
                     <td><span id="roles"></span></td>
                     <td> <input type="button" value="Limpiar Campos" onclick="limpiarCampos()">&nbsp;&nbsp; </td>

@@ -1,60 +1,77 @@
 /******************* Metodos CRUD para Ingresos ***************************/
 function insertarIngresos() {
 
-    var idIngresos = 0;
+    var fecha = $('#txtFechaIngreso').val();
+    if (validarIngreso() && validarFecha(fecha)) {
 
-    var parametros = {
-        "idIngresos": idIngresos.value,
-        "idEmpleado": $('#cbxEmpleado').val(),
-        "idCliente": $('#cbxCliente').val(),
-        "tipoPago": $('#cbxTipoPago').val(),
-        "numBoucher": $('#txtNumBoucher').val(),
-        "monto": $('#txtMonto').val(),
-	"fechaIngreso": $('#txtFechaIngreso').val()
-    };
+        var monto = $('#txtMonto').val();
+        monto = monto.replace(/₡/g, "");
 
-    //alert($('#txtNumeroCuenta').val());
 
-    $.ajax({
-        data: parametros,
-        url: '../../actions/ingresos/insertarIngresos.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            obtenerIngresos();
-            $("#resultado").html(response);
+        var parametros = {
+            "idEmpleado": $('#cbxEmpleadoIngreso').val(),
+            "idCliente": $('#cbxClienteIngreso').val(),
+            "tipoPago": $('#cbxTipoPago').val(),
+            "numBoucher": $('#txtNumBoucher').val(),
+            "monto": monto,
+            "fechaIngreso": obtenerFechaFormatoSQL(fecha)
+        };
+
+        if (confirm("¿ Desea agregar este ingreso ?")) {
+            $.ajax({
+                data: parametros,
+                url: '../../actions/ingresos/insertarIngresos.php',
+                type: 'post',
+                success: function (response) {
+                    //se recarga el combo y limpan los espacios
+                    $('input[type=text]').val("");
+                    $("#cbxEmpleadoIngreso").val("0");
+                    $("#cbxClienteIngreso").val("0");
+                    $("#cbxTipoPago").val("0");
+                    obtenerIngresos();
+                    $("#resultado").html(response);
+                }
+            });
         }
-    });
-
+    }
 }
 
 function actualizarIngresos() {
 
-    var idIngresos = document.getElementById("cbxIngresos").value;
-  
+    var fecha = $('#txtFechaIngreso').val();
+    if (validarIngreso() && validarFecha(fecha)) {
 
-    var parametros = {
-        "idIngresos": idIngresos,
-        "idEmpleado": $('#cbxEmpleado').val(),
-        "idCliente": $('#cbxCliente').val(),
-        "tipoPago": $('#cbxTipoPago').val(),
-        "numBoucher": $('#txtNumBoucher').val(),
-        "monto": $('#txtMonto').val(),
-	"fechaIngreso": $('#txtFechaIngreso').val()
-    };
+        var monto = $('#txtMonto').val();
+        monto = monto.replace(/₡/g, "");
+        var idIngresos = document.getElementById("cbxIngresos").value;
 
-    $.ajax({
-        data: parametros,
-        url: '../../actions/ingresos/actualizarIngresos.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            obtenerIngresos();
-            $("#resultado").html(response);
+
+        var parametros = {
+            "idIngresos": idIngresos,
+            "idEmpleado": $('#cbxEmpleadoIngreso').val(),
+            "idCliente": $('#cbxClienteIngreso').val(),
+            "tipoPago": $('#cbxTipoPago').val(),
+            "numBoucher": $('#txtNumBoucher').val(),
+            "monto": monto,
+            "fechaIngreso": obtenerFechaFormatoSQL(fecha)
+        };
+
+        if (confirm("¿ Desea modificar este ingreso ?")) {
+            $.ajax({
+                data: parametros,
+                url: '../../actions/ingresos/actualizarIngresos.php',
+                type: 'post',
+                success: function (response) {
+                    //se recarga el combo y limpan los espacios     $('input[type=text]').val("");
+                    $("#cbxEmpleadoIngreso").val("0");
+                    $("#cbxClienteIngreso").val("0");
+                    $("#cbxTipoPago").val("0");
+                    obtenerIngresos();
+                    $("#resultado").html(response);
+                }
+            });
         }
-    });
+    }
 }
 
 function borrarIngresos() {
@@ -63,22 +80,24 @@ function borrarIngresos() {
     var parametros = {
         "idIngresos": idIngresos
     };
-
-    $.ajax({
-        data: parametros,
-        url: '../../actions/ingresos/borrarIngresos.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            obtenerIngresos();
-            $("#resultado").html(response);
-        }
-    });
+    if (confirm("¿ Desea borrar este ingreso ?")) {
+        $.ajax({
+            data: parametros,
+            url: '../../actions/ingresos/borrarIngresos.php',
+            type: 'post',
+            success: function (response) {
+                //se recarga el combo y limpan los espacios
+                $('input[type=text]').val("");
+                $("#cbxEmpleadoIngreso").val("0");
+                $("#cbxClienteIngreso").val("0");
+                $("#cbxTipoPago").val("0");
+                obtenerIngresos();
+                $("#resultado").html(response);
+            }});
+    }
 }
-function obtenerIngresos() {
 
-    
+function obtenerIngresos() {
     $.ajax({
         data: '',
         url: '../../actions/ingresos/obtenerIngresos.php',
@@ -86,8 +105,6 @@ function obtenerIngresos() {
         success: function (response) {
             $("#ingresos").html(response);
         }
-
-
     });
 }
 
@@ -132,7 +149,7 @@ function cargarIngresos() {
 }
 
 function obtenerTipoPago() {
-    
+
     $.ajax({
         data: '',
         url: '../../actions/ingresos/obtenerTipoPago.php',
@@ -141,4 +158,55 @@ function obtenerTipoPago() {
             $("#tipoPagos").html(response);
         }
     });
+}
+
+/********************* Seccion de validaciones ************************/
+function validarIngreso() {
+    var expresionAlfaNumerica = /^[a-zA-Z0-9]+$/;
+
+    var idEmpleado = $('#cbxEmpleadoIngreso').val();
+    var idCliente = $('#cbxClienteIngreso').val();
+    var tipoPago = $('#cbxTipoPago').val();
+    var numBoucher = $('#txtNumBoucher').val();
+    var monto = $('#txtMonto').val();
+    var fechaIngreso = $('#txtFechaIngreso').val();
+    monto = monto.replace(/₡/g, "");
+
+    if (idEmpleado === '0') {
+        mandarMensaje("Elija un empleado para el ingreso");
+        cbxEmpleadoIngreso.focus();
+        return false;
+    }
+
+    if (idCliente === '0') {
+        mandarMensaje("Elija un cliente para el ingreso");
+        cbxClienteIngreso.focus();
+        return false;
+    }
+
+    if (tipoPago === '0') {
+        mandarMensaje("Elija un tipo de pago para el ingreso");
+        cbxTipoPago.focus();
+        return false;
+    }
+
+    if (!(numBoucher.match(expresionAlfaNumerica)) || ($.trim(numBoucher) === '')) {
+        mandarMensaje("El número de boucher es inválido");
+        txtNumBoucher.focus();
+        return false;
+    }
+
+    if (!(validarNumero(monto)) || ($.trim(monto) === "")) {
+        mandarMensaje("El monto del ingreso es inválido");
+        txtMonto.focus();
+        return false;
+    }
+
+    if ($.trim(fechaIngreso) === '') {
+        mandarMensaje("La fecha del ingreso es inválida.\nDebe ser dd/mm/yyyy");
+        txtFechaIngreso.focus();
+        return false;
+    }
+
+    return true;
 }

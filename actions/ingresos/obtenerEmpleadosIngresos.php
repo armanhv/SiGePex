@@ -6,8 +6,8 @@ include '../../business/empleadoBusiness.php';
 $empleadoBusiness = new EmpleadoBusiness();
 $listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 
-echo '<SELECT  name="cbxEmpleado" id="cbxEmpleado" size=1>';
-echo '<option value=0>Elija un Empleado</option>';
+echo '<SELECT  name="cbxEmpleadoIngreso" id="cbxEmpleadoIngreso" size=1>';
+echo '<option value="0">Elija un Empleado</option>';
 
 foreach ($listaEmpleados as $currentEmpleado) {
 
@@ -16,6 +16,3 @@ foreach ($listaEmpleados as $currentEmpleado) {
     
     echo '<option value=' . $idEmpleado . '>' . $nombreEmpleado . '</option>';
 }
-
-?>
-

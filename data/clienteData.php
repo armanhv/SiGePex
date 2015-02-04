@@ -1,8 +1,8 @@
 <?php
 
-include 'baseDatos.php';
-include '../../domain/cliente.php';
-include '../../utilidades/utilidadesGenerales.php';
+include_once 'baseDatos.php';
+include_once '../../domain/cliente.php';
+include_once '../../utilidades/utilidadesGenerales.php';
 
 class clienteData {
 

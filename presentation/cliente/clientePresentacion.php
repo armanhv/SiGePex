@@ -33,7 +33,7 @@
                     
                      <tr>
                         <td><label for="direccion">Direcci&oacute;n:</label></td>
-                        <td><textarea rows="2" cols="22" maxlength="250s" value=""  id="txtDireccion"></textarea></td>
+                        <td><textarea rows="4" cols="22" maxlength="250s" value=""  id="txtDireccion"></textarea></td>
                     </tr>
                     
                     <tr>

@@ -10,20 +10,22 @@ $tipoPago = $_POST['tipoPago'];
 $numBoucher = $_POST['numBoucher'];
 $monto = $_POST['monto'];
 $fechaIngreso = $_POST['fechaIngreso'];
+
+$monto = str_replace(".", "", $monto);
+$monto = str_replace(",", ".", $monto);
+$monto = str_replace("₡", "", $monto);
+
 //comunucacion con Business
 $ingresosBusiness = new ingresosBusiness();
 
 //se crea una instancia de cuenta
 $newIngresos = new ingresos(0, $idEmpleado, $idCliente, $tipoPago, $numBoucher, $monto,$fechaIngreso);
 
-//echo $idEmpleado . ' - ' . $nombreBanco . ' - ' . $numeroCuenta . ' - ' . $tipoCuenta . ' - ' . $numeroSimpe;
-
 //se inserta la cuenta
 $result = $ingresosBusiness->insertarIngreso($newIngresos);
 
 if ($result) {
-    echo '<span class="correcto"> Parto Registrado con &Eacute;xito </span>';
+    echo '<span class="correcto">El ingreso se agrego correctamente</span>';
 } else {
-    echo '<span class="incorrecto"> Parto Registrado sin &Eacute;xito </span>';
+    echo '<span class="incorrecto">El ingreso no se agregó</span>';
 }
-?>

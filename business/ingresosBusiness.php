@@ -1,6 +1,6 @@
 <?php
 
-include "../../data/ingresosData.php";
+include_once "../../data/ingresosData.php";
 
 class ingresosBusiness {
 

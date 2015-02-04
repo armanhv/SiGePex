@@ -2,6 +2,7 @@
 
 include '../../business/pagoPeriodoBusiness.php';
 
+
 //los valores almacenados que se enviarion por el cliente
 $idPago = $_POST['idPago'];
 

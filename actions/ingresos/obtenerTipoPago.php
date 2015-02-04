@@ -7,7 +7,7 @@ $ingresosBusiness=new ingresosBusiness();
 $listaTipoPago=$ingresosBusiness->obtenerTipoPago();
 
 echo '<SELECT name="cbxTipoPago" id="cbxTipoPago" size=1>';
-echo '<option value=0>Elija un Tipo de Pago</option>';
+echo '<option value="0">Elija un Tipo de Pago</option>';
 
 foreach($listaTipoPago as $currentTipo){
 	
