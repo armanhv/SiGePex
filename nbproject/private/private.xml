@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/SiGePex/js/ajaxIngresos.js</file>
-            <file>file:/C:/xampp/htdocs/SiGePex/js/ajaxEmpleado.js</file>
-            <file>file:/C:/xampp/htdocs/SiGePex/actions/ingresos/cargarIngresos.php</file>
+            <file>file:/C:/xampp/htdocs/SiGePex/js/ajaxMorosidad.js</file>
+            <file>file:/C:/xampp/htdocs/SiGePex/index.php</file>
+            <file>file:/C:/xampp/htdocs/SiGePex/js/validacion/jquery-ui.js</file>
+            <file>file:/C:/xampp/htdocs/SiGePex/js/ajaxCuentasPorCobrar.js</file>
         </group>
     </open-files>
 </project-private>

@@ -23,5 +23,9 @@
         <br>
         <a href="presentation/ingresos/ingresosPresentacion.php">Ingreso</a>
         <br>
+        <a href="presentation/cuentasPorCobrar/cuentasPorCobrarPresentacion.php">Cuentas por cobrar</a>
+        <br>
+        <a href="presentation/morosidad/morosidadPresentacion.php">Morosidad</a>
+        <br>
     </body>
 </html>
