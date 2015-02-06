@@ -159,7 +159,6 @@ function buscarEmpleado() {
             var txtPass = document.getElementById("txtPassword");
             var txtCantidadHorasLaborales = document.getElementById("txtCantidadHorasLaborales");
             var txtCostoHoraExtra = document.getElementById("txtCostoHoraExtra");
-            var txtTiempoAlmuerzo = document.getElementById("txtTiempoAlmuerzo");
 
             txtCedula.value = msg.cedulaEmpleado;
             txtNombre.value = msg.nombreEmpleado;
@@ -172,7 +171,6 @@ function buscarEmpleado() {
             txtPass.value = msg.passwordEmpleado;
             txtCantidadHorasLaborales.value = msg.cantidadHorasLaborales;
             txtCostoHoraExtra.value = msg.costoHoraExtra;
-            txtTiempoAlmuerzo.value = msg.tiempoAlmuerzo;
 
             recarga();
         }
@@ -191,12 +189,6 @@ function limpiarCampos() {
     var txtPass = document.getElementById("txtPassword");
     var txtCantidadHorasLaborales = document.getElementById("txtCantidadHorasLaborales");
     var txtCostoHoraExtra = document.getElementById("txtCostoHoraExtra");
-    var txtTiempoAlmuerzo = document.getElementById("txtTiempoAlmuerzo");
-    
-    var valorIdEmpleado = document.getElementById("cbxEmpleado").value;
-    alert(valorIdEmpleado);
-    document.getElementById("cbxEmpleado").selectedIndex = 0;
-    alert(valorIdEmpleado);
 
     txtCedula.value = "";
     txtNombre.value = "";
@@ -209,9 +201,10 @@ function limpiarCampos() {
     txtPass.value = "";
     txtCantidadHorasLaborales.value = "";
     txtCostoHoraExtra.value = "";
-    txtTiempoAlmuerzo.value = "";
-    obtenerTelefonosEmpleado();
+     document.getElementById("cbxEmpleado").selectedIndex=0;
     obtenerLicenciasEmpleado();
+    obtenerTelefonosEmpleado();
+    
 }
 
 /********************* Seccion de validaciones ************************/

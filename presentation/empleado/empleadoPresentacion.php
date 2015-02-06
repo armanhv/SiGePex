@@ -3,12 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title> 
-        <script type="text/javascript" src="../../js/jquery-2-1-3.js"></script> 
         <script type="text/javascript" src="../../js/ajaxEmpleado.js"></script>
         <script type="text/javascript" src="../../js/ajaxRol.js"></script>
         <script type="text/javascript" src="../../js/ajaxTelefono.js"></script>
-        <script type="text/javascript" src="../../js/ajaxLicencia.js"></script> 
-        
+        <script type="text/javascript" src="../../js/ajaxLicencia.js"></script>  
+        <script type="text/javascript" src="../../js/jquery-2-1-3.js"></script>
+
 
         <script type="text/javascript" src="../../js/validacion/validarEmail.js"></script>
         <script type="text/javascript" src="../../js/validacion/mascaraTelefono.js"></script>
@@ -36,6 +36,7 @@
             moneda()">
         <form name="empleado">
             <p>Mantenimiento de Empleados</p>
+            <br>        
             
             <table>
                 <tr>
@@ -129,12 +130,12 @@
 
         </form>
         <!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
-<script type="text/JavaScript">
+        <script type="text/JavaScript">
 
-    $("#txtFechaNacimiento").datepicker();
-    datePickerLatino();
+            $("#txtFechaNacimiento").datepicker();
+            datePickerLatino();
 
-</script>
+        </script>
     </body>
 </html>
 
