@@ -1,6 +1,6 @@
 <?php
 
-include_once 'baseDatos.php';
+include_once '../../data/baseDatos.php';
 include_once '../../domain/cliente.php';
 include_once '../../utilidades/utilidadesGenerales.php';
 

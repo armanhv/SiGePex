@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>     
+        <title></title> 
+        <script type="text/javascript" src="../../js/jquery-2-1-3.js"></script> 
         <script type="text/javascript" src="../../js/ajaxEmpleado.js"></script>
         <script type="text/javascript" src="../../js/ajaxRol.js"></script>
         <script type="text/javascript" src="../../js/ajaxTelefono.js"></script>
         <script type="text/javascript" src="../../js/ajaxLicencia.js"></script> 
+        
 
         <script type="text/javascript" src="../../js/validacion/validarEmail.js"></script>
         <script type="text/javascript" src="../../js/validacion/mascaraTelefono.js"></script>
@@ -29,7 +31,7 @@
 
     </head>
     <body style="" onload="obtenerRoles();
-            obtenerEmpleados22();
+            obtenerEmpleados();
             mascaraCedula();
             moneda()">
         <form name="empleado">
@@ -126,13 +128,13 @@
             </table>
 
         </form>
-    </body>
-</html>
-
-<!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
+        <!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
 <script type="text/JavaScript">
 
     $("#txtFechaNacimiento").datepicker();
     datePickerLatino();
 
 </script>
+    </body>
+</html>
+

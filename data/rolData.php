@@ -1,7 +1,7 @@
 <?php
 
 include '../../domain/rol.php';
-include 'baseDatos.php';
+include_once '../../data/baseDatos.php';
 include '../../utilidades/utilidadesGenerales.php';
 
 class rolData {

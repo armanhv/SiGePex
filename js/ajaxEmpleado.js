@@ -124,8 +124,7 @@ function actualizarEmpleado() {
     }
 }
 
-function obtenerEmpleados22() {
-    alert("ent<klnzdmhfv");
+function obtenerEmpleados() {
     $.ajax({
         data: '',
         url: '../../actions/empleado/obtenerEmpleados.php',
