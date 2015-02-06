@@ -1,14 +1,11 @@
 <?php
-
-include "../../data/telefonoData.php";
-
-class telefonoBusiness {
-
+include_once '../../data/telefonoClienteData';
+class telefonoClienteBusiness {
     //variables regarding composition
     private $telefonoData;
 
     public function telefonoBusiness() {
-        $this->telefonoData = new telefonoData();
+        $this->telefonoData = new telefonoClienteData();
     }
 
     public function insertarTelefono($objTelefono) {
@@ -36,9 +33,8 @@ class telefonoBusiness {
         return $telefono;
     }
     
-     public function buscarTelefonosEmpleado($idEmpleado) {
-        $resultado = $this->telefonoData->buscarTelefonosEmpleado($idEmpleado);
+     public function buscarTelefonosCliente($idCliente) {
+        $resultado = $this->telefonoData->buscarTelefonosCliente($idCliente);
         return $resultado;
     }
-
 }
