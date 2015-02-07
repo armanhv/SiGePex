@@ -3,13 +3,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>SiGePex</title>     
         <script type="text/javascript" src="../../js/ajaxCuentasPorCobrar.js"></script> 
-        <script type="text/javascript" src="../../js/ajaxEmpleado.js"></script> 
         <script type="text/javascript" src="../../js/ajaxCliente.js"></script> 
         <script type="text/javascript" src="../../js/jquery.js"></script>    
     </head>
 
     <body style="" onload="obtenerCuentasPorCobrar();
-            obtenerEmpleados22();
             obtenerClientes();
             obtenerEmpleadosCuentaCobrar();
             obtenerClientesMorosos();">

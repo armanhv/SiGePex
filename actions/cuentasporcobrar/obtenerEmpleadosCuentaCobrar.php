@@ -3,8 +3,8 @@
 include '../../business/empleadoBusiness.php';
 
 //comunicacion con Business
-$empleadoBusiness = new EmpleadoBusiness();
-$listaEmpleados = $empleadoBusiness->obtenerEmpleadosCuentaCobrar();
+$empleadoBusiness = new empleadoBusiness();
+$listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 
 echo '<SELECT  name="cbxEmpleadoCuenta" id="cbxEmpleadoCuenta" size=1>';
 echo '<option value="0">Seleccione un Empleado</option>';

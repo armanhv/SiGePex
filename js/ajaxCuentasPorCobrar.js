@@ -175,7 +175,7 @@ function obtenerEmpleadosCuentaCobrar() {
         url: '../../actions/cuentasporcobrar/obtenerEmpleadosCuentaCobrar.php',
         type: 'post',
         success: function (response) {
-            $("#EmpleadoCuenta").html(response);
+            $("#empleados").html(response);
         }
     });
 }

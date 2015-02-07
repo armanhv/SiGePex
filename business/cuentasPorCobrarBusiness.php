@@ -52,11 +52,6 @@ class cuentasPorCobrarBusiness {
         return $cliente;
     }
     
-    public function obtenerEmpleadosCuentaCobrar() {
-        $resultado = $this->cuentasPorCobrarData->obtenerEmpleadosCuentaCobrar();
-        return $resultado;
-    }
-    
     public function buscarEmpleadosCuentaCobrar($idCliente) {
         $cliente = $this->cuentasPorCobrarData->buscarEmpleadosCuentaCobrar($idCliente);
         return $cliente;

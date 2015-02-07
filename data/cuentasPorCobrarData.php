@@ -131,20 +131,4 @@ class cuentasPorCobrarData {
         $this->objConexionBaseDatos->cerrarConexion();
         return $empleado;
     }
-
-    public function obtenerEmpleadosCuentaCobrar() {
-        $query = "select * from tbempleado";
-        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
-        $empleado = [];
-
-        while ($row = mysqli_fetch_array($resultado)) {
-            $empleado = new empleado($row['idEmpleado'], $row['cedulaEmpleado'], $row['nombreEmpleado'], $row['primerApellidoEmpleado'], $row['segundoApellidoEmpleado'], $row['fechaNacimiento'], $row['emailEmpleado'], $row['direccionEmpleado'], $row['loginEmpleado'], $row['passwordEmpleado'], $row['cantidadHorasLaborales'], $row['costoHoraExtra'], $row['tiempoAlmuerzo'], $row['idRolEmpleado']);
-
-
-            $this->objConexionBaseDatos->cerrarConexion();
-
-            return $empleado;
-        }
-    }
-
 }

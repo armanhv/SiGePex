@@ -24,10 +24,7 @@
         <p><font size=6>Módulo de Morosidad</font></p>
 
         <label for="clientes">Cliente:</label>
-        <div id="cliente"></div><br>
-
-        <!--<div id="tablaMorosidad">-->
-
+        <div id="clientes"></div><br>
         <table>
 
             <tr>
