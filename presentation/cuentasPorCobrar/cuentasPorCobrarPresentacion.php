@@ -9,17 +9,20 @@
     </head>
 
     <body style="" onload="obtenerCuentasPorCobrar();
-            obtenerEmpleados(); obtenerClientes()">
+            obtenerEmpleados22();
+            obtenerClientes();
+            obtenerEmpleadosCuentaCobrar();
+            obtenerClientesMorosos();">
         <div style="margin-left: 500px"><br><br>
             <p><font size=6>Módulo Cuentas por Cobrar</font></p><br><br>
 
-            <label for="empleados">Empleado:</label>
-            <div id="listaEmpleados"></div><br>
-            <label for="clientes">Cliente:</label>
-            <div id="cliente"></div><br>
-
-<!--            <div id="tablaCuentasPorCobrar">-->
+            <div id="tablaCuentasPorCobrar">
                 <table>
+                    
+                    <label for="Empleado">Empleado:</label>
+                    <div id="empleados"></div><br>
+                    <label for="cliente">Cliente:</label>
+                    <div id="clientes"></div><br>
 
                     <tr>
                         <td><label for="fechaPago">Fecha Pago:</label></td>
@@ -37,7 +40,7 @@
                         <td><input type="button" value="Borrar" onclick="borrarCuentaPorCobrar()">&nbsp;&nbsp;</td>
                     </tr>
                 </table>
-            <!--</div>-->
+            </div>
             <br>
             <span id="resultado"></span>
 

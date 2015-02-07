@@ -2,6 +2,8 @@
 
 include_once '../../domain/cuentasPorCobrar.php';
 include_once '../../data/baseDatos.php';
+include_once '../../domain/empleado.php';
+include_once '../../domain/cliente.php';
 
 class cuentasPorCobrarData {
 
@@ -11,7 +13,7 @@ class cuentasPorCobrarData {
     public function cuentasPorCobrarData() {
         $this->objConexionBaseDatos = new baseDatos();
     }
-    
+
     public function obtenerIdCuentaCobrar() {
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select max(idCuentasPorCobrar) from tbcuentasporcobrar;");
         $this->objConexionBaseDatos->cerrarConexion();
@@ -25,22 +27,19 @@ class cuentasPorCobrarData {
 
     //Metodo para insertar una Cuenta Por Cobrar
     public function insertarCuentaPorCobrar($cuentaPorCobrar) {
-        
-        $query = "insert into tbcuentasporcobrar values (" . $this->obtenerIdCuentaCobrar(). ",'" 
-                .$cuentaPorCobrar->idEmpleado. "','".$cuentaPorCobrar->idCliente 
-                . "','".$cuentaPorCobrar->fechaPago ."','". $cuentaPorCobrar->monto. "')";
+
+        $query = "insert into tbcuentasporcobrar values (" . $this->obtenerIdCuentaCobrar() . ",'"
+                . $cuentaPorCobrar->idEmpleado . "','" . $cuentaPorCobrar->idCliente
+                . "','" . $cuentaPorCobrar->fechaPago . "','" . $cuentaPorCobrar->monto . "')";
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
-             
+
         $this->objConexionBaseDatos->cerrarConexion();
         if ($resultado) {
             return true;
         } else {
             return false;
-                        
         }
-        
     }
-    
 
     //Metodo para eliminara una Cuenta Por Cobrar
     public function borrarCuentaPorCobrar($idCuentasPorCobrar) {
@@ -56,9 +55,9 @@ class cuentasPorCobrarData {
 
     //Metodo para Actualizar una Cuenta Por Cobrar
     public function actualizarCuentaPorCobrar($cuentaPorCobrar) {
-        $query = "update tbcuentasporcobrar set idEmpleado='" . $cuentaPorCobrar->idEmpleado. "', idCliente = '"
-                 .$cuentaPorCobrar->idCliente. "', fechaPago = '". $cuentaPorCobrar->fechaPago."',"
-                . " monto = '" . $cuentaPorCobrar->monto.  "'  where idCuentasPorCobrar=" . $cuentaPorCobrar->idCuentasPorCobrar . " ;";
+        $query = "update tbcuentasporcobrar set idEmpleado='" . $cuentaPorCobrar->idEmpleado . "', idCliente = '"
+                . $cuentaPorCobrar->idCliente . "', fechaPago = '" . $cuentaPorCobrar->fechaPago . "',"
+                . " monto = '" . $cuentaPorCobrar->monto . "'  where idCuentasPorCobrar=" . $cuentaPorCobrar->idCuentasPorCobrar . " ;";
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $this->objConexionBaseDatos->cerrarConexion();
         if ($resultado) {
@@ -76,20 +75,76 @@ class cuentasPorCobrarData {
         $this->objConexionBaseDatos->cerrarConexion();
         return $cuentasPorCobrar;
     }
-    
-    //Metodo para obtener todos los roles
+
     public function obtenerCuentasPorCobrar() {
-        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select * from tbcuentasporcobrar");
-        $this->objConexionBaseDatos->cerrarConexion();
+        $query = "select * from tbcuentasporcobrar";
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $arrayCuentaPorCobrar = [];
 
+
         while ($row = mysqli_fetch_array($resultado)) {
-            $currentCuentaPorCobrar= new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fechaPago'], $row['monto']);
+            $currentCuentaPorCobrar = new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fechaPago'], $row['monto']);
             array_push($arrayCuentaPorCobrar, $currentCuentaPorCobrar);
         }
+        $this->objConexionBaseDatos->cerrarConexion();
+
         return $arrayCuentaPorCobrar;
     }
 
+//METODOS PARA CARGAR COMBO CON OTRO
+
+    public function obtenerClientesMorosos() {
+        $query = "select * from btcliente";
+        $result = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+        $arrayCliente = [];
+
+        while ($row = mysqli_fetch_array($result)) {
+            $clienteActual = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido'], $row['direccion']);
+            array_push($arrayCliente, $clienteActual);
+        }
+
+        $this->objConexionBaseDatos->cerrarConexion();
+
+        return $arrayCliente;
+    }
+
+    public function buscarClientesMorosos($idCliente) {
+        $query = "SELECT * FROM btcliente WHERE(idCliente =" . $idCliente . ")";
+        $resulGeneral = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+
+        $row = $resulGeneral->fetch_array();
+
+        $cliente = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido'], $row['direccion']);
+
+        $this->objConexionBaseDatos->cerrarConexion();
+        return $cliente;
+    }
+
+    public function buscarEmpleadosCuentaCobrar($identificacionEmpleado) {
+        $query = "select* from tbempleado where(idEmpleado =" . $identificacionEmpleado . ")";
+        $resulGeneral = mysqli_query($this->conexion->abrirConexion(), $query);
+
+        $row = $resulGeneral->fetch_array();
+
+        $empleado = new empleado($row['idEmpleado'], $row['cedulaEmpleado'], $row['nombreEmpleado'], $row['primerApellidoEmpleado'], $row['segundoApellidoEmpleado'], $row['fechaNacimiento'], $row['emailEmpleado'], $row['direccionEmpleado'], $row['loginEmpleado'], $row['passwordEmpleado'], $row['cantidadHorasLaborales'], $row['costoHoraExtra'], $row['tiempoAlmuerzo'], $row['idRolEmpleado']);
+
+        $this->objConexionBaseDatos->cerrarConexion();
+        return $empleado;
+    }
+
+    public function obtenerEmpleadosCuentaCobrar() {
+        $query = "select * from tbempleado";
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+        $empleado = [];
+
+        while ($row = mysqli_fetch_array($resultado)) {
+            $empleado = new empleado($row['idEmpleado'], $row['cedulaEmpleado'], $row['nombreEmpleado'], $row['primerApellidoEmpleado'], $row['segundoApellidoEmpleado'], $row['fechaNacimiento'], $row['emailEmpleado'], $row['direccionEmpleado'], $row['loginEmpleado'], $row['passwordEmpleado'], $row['cantidadHorasLaborales'], $row['costoHoraExtra'], $row['tiempoAlmuerzo'], $row['idRolEmpleado']);
+
+
+            $this->objConexionBaseDatos->cerrarConexion();
+
+            return $empleado;
+        }
+    }
+
 }
-
-
