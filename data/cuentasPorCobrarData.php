@@ -83,7 +83,7 @@ class cuentasPorCobrarData {
 
 
         while ($row = mysqli_fetch_array($resultado)) {
-            $currentCuentaPorCobrar = new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fecha'], $row['monto']);
+            $currentCuentaPorCobrar = new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fechaPago'], $row['monto']);
             array_push($arrayCuentaPorCobrar, $currentCuentaPorCobrar);
         }
         $this->objConexionBaseDatos->cerrarConexion();
