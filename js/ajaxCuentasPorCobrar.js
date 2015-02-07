@@ -102,7 +102,7 @@ function obtenerCuentasPorCobrar() {
         "idCliente": idCliente
     };
     $.ajax({
-        data:parametros,
+        data: parametros,
         url: '../../actions/cuentasporcobrar/obtenerCuentasPorCobrarAction.php',
         type: 'post',
         success: function (response) {
@@ -129,10 +129,9 @@ function buscarCuentasPorCobrar() {
         {
             var txtFechaPago = document.getElementById("txtFechaPago");
             var txtMonto = document.getElementById("txtMonto");
-            
+
             $(cbxEmpleado).val(msg.idEmpleado);
             $(cbxCliente).val(msg.idCliente);
-            cbxCliente.value = msg.idCliente;
             txtFechaPago.value = msg.fechaPago;
             txtMonto.value = msg.monto;
 
@@ -186,17 +185,15 @@ function obtenerClientesCuentas() {
 
 //----------------
 
-function  limpiarCampos() {
-
-    var cbxEmpleado = document.getElementById("cbxEmpleado").value;
-    var cbxCliente = document.getElementById("cbxCliente").value;
+function  limpiarCamposCuentasPorCobrar() {
     var txtFechaPago = document.getElementById("txtFechaPago");
     var txtMonto = document.getElementById("txtMonto");
 
-    cbxEmpleado.value = "";
-    cbxCliente.value = "";
+    document.getElementById("cbxEmpleado").selectedIndex = 0;
+    document.getElementById("cbxCliente").selectedIndex = 0;
     txtFechaPago.value = "";
     txtMonto.value = "";
+    obtenerCuentasPorCobrar();
 
 }
 

@@ -15,6 +15,7 @@
             <p><font size=6>Módulo Cuentas por Cobrar</font></p>
 
             <div id="tablaCuentasPorCobrar">
+                <input type="button" value="Limpiar Campos" onclick="limpiarCamposCuentasPorCobrar()"><br><br>
                 <table>
                     <label for="Empleado">Empleado:</label>&nbsp;&nbsp;
                     <span id="empleados"></span><br><br>
@@ -36,6 +37,7 @@
                         <td><input type="button" value="Actualizar" onclick="actualizarCuentaPorCobrar()">&nbsp;&nbsp;</td>
                         <td><input type="button" value="Borrar" onclick="borrarCuentaPorCobrar()">&nbsp;&nbsp;</td>
                     </tr>
+                    
                 </table>
             </div>
             <br>
