@@ -4,9 +4,9 @@ include '../../business/clienteBusiness.php';
 
 //comunicacion con Business
 $clienteBusiness = new clienteBusiness();
-$listaCliente = $clienteBusiness->obtenerClientesMorosos();
+$listaCliente = $clienteBusiness->obtenerCliente();
 
-echo '<SELECT NAME="cbxCliente" id="cbxCliente" SIZE=1>';
+echo '<SELECT onClick="obtenerCuentasPorCobrar()"  NAME="cbxCliente" id="cbxCliente" SIZE=1>';
 echo '<option value="0">Seleccione un Cliente</option>';
 echo 'aqui';
 

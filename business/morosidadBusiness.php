@@ -36,8 +36,8 @@ class morosidadBusiness {
         return $resultado;
     }
     //metodo que se utiliza para obtener todos las morosidades
-    public function obtenerMorosidadesCliente() {
-        $resultado = $this->morosidadData->obtenerMorosidadesCliente();
+    public function obtenerMorosidadesCliente($idCliente) {
+        $resultado = $this->morosidadData->obtenerMorosidadesCliente($idCliente);
         return $resultado;
     }
     

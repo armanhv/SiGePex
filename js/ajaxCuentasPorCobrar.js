@@ -1,5 +1,6 @@
 /******************* Metodos CRUD para Cuentas Por Cobrar ***************************/
 function insertarCuentaPorCobrar() {
+
     if (validarCuentasPorCobrar()) {
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var idCliente = document.getElementById("cbxCliente").value;
@@ -35,7 +36,7 @@ function insertarCuentaPorCobrar() {
 }
 
 function borrarCuentaPorCobrar() {
-    var idCuentasPorCobrar = document.getElementById("cbxCuentasPorCobrar").value;
+    var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
 
     var parametros = {
         "idCuentasPorCobrar": idCuentasPorCobrar
@@ -60,7 +61,7 @@ function borrarCuentaPorCobrar() {
 
 function actualizarCuentaPorCobrar() {
     if (validarCuentasPorCobrar()) {
-        var idCuentasPorCobrar = document.getElementById("cbxCuentasPorCobrar").value;
+        var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var idCliente = document.getElementById("cbxCliente").value;
         var fechaPago = document.getElementById("txtFechaPago");
@@ -95,28 +96,26 @@ function actualizarCuentaPorCobrar() {
 
 function obtenerCuentasPorCobrar() {
 
+    var idCliente = document.getElementById("cbxCliente").value;
 
+    var parametros = {
+        "idCliente": idCliente
+    };
     $.ajax({
-        data: '',
+        data:parametros,
         url: '../../actions/cuentasporcobrar/obtenerCuentasPorCobrarAction.php',
         type: 'post',
         success: function (response) {
             $("#cuentasPorCobrar").html(response);
 
-        },
-        error: function (textStatus, errorThrown) {
-            alert("Status: " + textStatus);
-            alert("Error: " + errorThrown);
-
         }
-
     });
 
 }
 
 function buscarCuentasPorCobrar() {
 
-    var iID = document.getElementById("cbxCuentasPorCobrar").value;
+    var iID = $('input:radio[name=idCuentaPorCobrar]:checked').val();
 
     $.ajax({
         url: "../../actions/cuentasporcobrar/buscarCuentasPorCobrarAction.php",
@@ -128,20 +127,15 @@ function buscarCuentasPorCobrar() {
         },
         success: function (msg)
         {
-            var cbxEmpleado = document.getElementById("cbxEmpleado").value;
-            var cbxCliente = document.getElementById("cbxCliente").value;
             var txtFechaPago = document.getElementById("txtFechaPago");
             var txtMonto = document.getElementById("txtMonto");
-
-            cbxEmpleado.value = msg.idEmpleado;
+            
+            $(cbxEmpleado).val(msg.idEmpleado);
+            $(cbxCliente).val(msg.idCliente);
             cbxCliente.value = msg.idCliente;
             txtFechaPago.value = msg.fechaPago;
             txtMonto.value = msg.monto;
 
-        },
-        error: function (textStatus, errorThrown) {
-            alert("Status: " + textStatus);
-            alert("Error: " + errorThrown);
         }
     });
 }
@@ -149,14 +143,11 @@ function buscarCuentasPorCobrar() {
 //----------------
 
 function cargarCuentasPorCobrar() {
-    alert('aqui');
-    //Obtener los valores
-    var idCuentasPorCobrar = document.getElementById("cbxCuentasPorCobrar").value;
-alert('aqui');
+    var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
     var parametros = {
         "idCuentasPorCobrar": idCuentasPorCobrar
     };
-alert('aqui');
+    alert('aqui');
     $.ajax({
         data: parametros,
         url: '../../actions/cuentasporcobrar/cargarCuentasPorCobrar.php',
@@ -169,7 +160,7 @@ alert('aqui');
 }
 
 function obtenerEmpleadosCuentaCobrar() {
-    
+
     $.ajax({
         data: '',
         url: '../../actions/cuentasporcobrar/obtenerEmpleadosCuentaCobrar.php',
@@ -180,15 +171,15 @@ function obtenerEmpleadosCuentaCobrar() {
     });
 }
 
-function obtenerClientesMorosos() {
-    
+function obtenerClientesCuentas() {
+
     $.ajax({
         data: '',
-        url: '../../actions/cuentasporcobrar/obtenerClientesMorosos.php',
+        url: '../../actions/cuentasporcobrar/obtenerClientesCuentas.php',
         type: 'post',
         success: function (response) {
-            
-            $("#Cliente").html(response);
+
+            $("#clientes").html(response);
         }
     });
 }
@@ -212,17 +203,14 @@ function  limpiarCampos() {
 
 /********************* Seccion de validaciones ************************/
 function validarCuentasPorCobrar() {
-
     var idEmpleado = document.getElementById("cbxEmpleado").value;
     var idCliente = document.getElementById("cbxCliente").value;
     var fechaPago = document.getElementById("txtFechaPago").value;
     var monto = document.getElementById("txtMonto").value;
-
     if (idEmpleado === '0') {
         mandarMensaje("Debe seleccionar un empleado");
         cbxEmpleado.focus();
         return false;
-
     } else if (idCliente === '0') {
         mandarMensaje("Debe seleccionar un cliente");
         cbxCliente.focus();
@@ -239,4 +227,8 @@ function validarCuentasPorCobrar() {
     }
 
     return true;
+}
+
+function mandarMensaje(mensaje) {
+    alert(mensaje);
 }

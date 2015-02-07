@@ -37,8 +37,8 @@ class cuentasPorCobrarBusiness {
     }
     
     //metodo que se utiliza para obtener todas las cuentas por cobrar
-    public function obtenerCuentasPorCobrar() {
-        $resultado = $this->cuentasPorCobrarData->obtenerCuentasPorCobrar();
+    public function obtenerCuentasPorCobrar($idCliente) {
+        $resultado = $this->cuentasPorCobrarData->obtenerCuentasPorCobrar($idCliente);
         return $resultado;
     }
 
