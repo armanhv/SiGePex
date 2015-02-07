@@ -21,7 +21,7 @@ class tipoServicioBusines {
         return $resultado;
     }
 
-    public function eliminarTipoServicio($idtipoServicio) {
+    public function eliminarTipoServicio($idTipoServicio) {
         $resultado = $this->tipoServicioData->eliminarTipoServicio($idTipoServicio);
         return $resultado;
     }
