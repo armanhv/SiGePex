@@ -1,8 +1,6 @@
 <?php
-
-
 include_once '../../data/baseDatos.php';
-include '../../domain/telefonoCliente';
+include_once '../../domain/telefonoCliente.php';
 
 class telefonoClienteData {
 
@@ -11,6 +9,7 @@ class telefonoClienteData {
     public function telefonoClienteData() {
         $this->objConexionBaseDatos = new baseDatos();
     }
+    
 
     public function getIdTelefono() {
         $result = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select max(idTelefonoCliente) from tbtelefonocliente;");
@@ -94,20 +93,16 @@ class telefonoClienteData {
         return $telefono;
     }
 
-    public function buscarTelefonosCliente($idEmpleado) {
-        $query = "SELECT * FROM tbtelefonocliente WHERE idCliente =" . $idEmpleado . ";";
+    public function buscarTelefonosCliente($idCliente) {
+        $query = "SELECT * FROM tbtelefonocliente WHERE idCliente =" . $idCliente . ";";
         $resulGeneral = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $arrayTelefono = [];
         while ($row = mysqli_fetch_array($resulGeneral)) {
-            $telefonoActual = new telefono($row['idTelefonoCliente'], $row['idCliente'], $row['numeroTelefono']);
+            $telefonoActual = new telefonoCliente($row['idTelefonoCliente'], $row['idCliente'], $row['numeroTelefono']);
             array_push($arrayTelefono, $telefonoActual);
         }
-
         $this->objConexionBaseDatos->cerrarConexion();
-
-        return $arrayTelefono;        
-        
+        return $arrayTelefono;
     }
 
 }
-

@@ -1,40 +1,41 @@
 <?php
-include_once '../../data/telefonoClienteData';
+include_once '../../data/telefonoClienteData.php';
 class telefonoClienteBusiness {
     //variables regarding composition
-    private $telefonoData;
+    private $telefonoClienteData;
 
-    public function telefonoBusiness() {
-        $this->telefonoData = new telefonoClienteData();
+    public function telefonoClienteBusiness() {        
+        $this->telefonoClienteData=new telefonoClienteData();
     }
 
     public function insertarTelefono($objTelefono) {
-        $resultado = $this->telefonoData->insertarTelefono($objTelefono);
+        $resultado = $this->telefonoClienteData->insertarTelefono($objTelefono);
         return $resultado;
     }
 
     public function actualizarTelefono($objTelefono) {
-        $resultado = $this->telefonoData->actualizarTelefono($objTelefono);
+        $resultado = $this->telefonoClienteData->actualizarTelefono($objTelefono);
         return $resultado;
     }
 
     public function eliminarTelefono($idTelefono) {
-        $resultado = $this->telefonoData->eliminarTelefono($idTelefono);
+        $resultado = $this->telefonoClienteData->eliminarTelefono($idTelefono);
         return $resultado;
     }
 
     public function obtenerTelefono() {
-        $resultado = $this->telefonoData->obtenerTelefono();
+        $resultado = $this->telefonoClienteData->obtenerTelefono();
         return $resultado;
     }
     
     public function buscarTelefono($idTelefono) {
-        $telefono = $this->telefonoData->buscarTelefono($idTelefono);
+        $telefono = $this->telefonoClienteData->buscarTelefono($idTelefono);
         return $telefono;
     }
     
      public function buscarTelefonosCliente($idCliente) {
-        $resultado = $this->telefonoData->buscarTelefonosCliente($idCliente);
+        $resultado =  $this->telefonoClienteData->buscarTelefonosCliente($idCliente);
         return $resultado;
     }
+    
 }
