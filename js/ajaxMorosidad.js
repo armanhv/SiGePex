@@ -116,6 +116,29 @@ function obtenerMorosidadesCliente() {
     });
 }
 
+
+function obtenerMorosidadesRangoFechas() {
+    var fechaInicio = document.getElementById("txtFechaInicio").value;
+    var fechaFinal = document.getElementById("txtFechaFinal").value;
+
+    // alert("entro a obtener morosidades idCliente="+idCliente);
+
+    var parametros = {
+        "fechaInicio": fechaInicio,
+        "fechaFinal":fechaFinal
+    };
+    $.ajax({
+        data: parametros,
+        url: '../../actions/morosidad/obtenerMorosidadesPorRangoFechas.php',
+        type: 'post',
+        success: function (response) {
+            $("#morosidades").html(response);
+        }
+    });
+}
+
+
+
 function buscarMorosidad() {
 
     var iID = $('input:radio[name=idMorosidad]:checked').val();
