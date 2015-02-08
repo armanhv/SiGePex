@@ -64,6 +64,15 @@ class morosidadData {
         }
     }
 
+     public function buscarMorosidad($idMorosidad) {
+        $query = "select * from tbmorosidad where idMorosidad=" . $idMorosidad . ";";
+        $resulGeneral = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+        $row = $resulGeneral->fetch_array();
+        $morosidad = new morosidad($row['idMorosidad'], $row['idCliente'], $row['fechaMorosidad'], $row['monto']);
+        $this->objConexionBaseDatos->cerrarConexion();
+        return $morosidad;
+    }
+    
     //Metodo para obtener todos las morosidades
     public function obtenerMorosidades() {
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select * from tbmorosidad");
@@ -76,6 +85,20 @@ class morosidadData {
         }
         return $arrayMorosidad;
     }
+
+    //Metodo para obtener todos las morosidades
+    public function obtenerMorosidadesCliente() {
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select * from tbmorosidad");
+        $this->objConexionBaseDatos->cerrarConexion();
+        $arrayMorosidad = [];
+
+        while ($row = mysqli_fetch_array($resultado)) {
+            $currentMorosidad= new morosidad($row['idMorosidad'], $row['idCliente'], $row['fechaMorosidad'], $row['monto']);
+            array_push($arrayMorosidad, $currentMorosidad);
+        }
+        return $arrayMorosidad;
+    }
+    
 
 }
 

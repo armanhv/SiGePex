@@ -23,8 +23,8 @@ function obtenerTelefono() {
     var num2 = document.getElementById("txtTelefonoNum2").value;
     var num3 = document.getElementById("txtTelefonoNum3").value;
     var num4 = document.getElementById("txtTelefonoNum4").value;
-
     return num1 + num2 + num3 + num4;
+    
 }
 
 function validarTelefono() {
@@ -37,6 +37,24 @@ function validarTelefono() {
 
     if ($.trim($('#txtTelefonoNum1').val()) === "" || $.trim($('#txtTelefonoNum2').val()) === "" ||
             $.trim($('#txtTelefonoNum3').val()) === "" || $.trim($('#txtTelefonoNum4').val()) === "") {
+        
+        mandarMensaje("El teléfono es inválido.");
+        txtTelefonoNum1.focus();
+        return false;
+    }
+    return true;
+}
+
+function validarTelefonoCliente() {
+
+    if ($('#cbxCliente').val() === '0') {
+        mandarMensaje("Elija un cliente para agregarle un teléfono");
+        cbxEmpleado.focus();
+        return false;
+    }
+
+    if ($.trim($('#txtTelefonoNum1').val()) === "" || $.trim($('#txtTelefonoNum2').val()) === "" ||
+         $.trim($('#txtTelefonoNum3').val()) === "" || $.trim($('#txtTelefonoNum4').val()) === "") {
         
         mandarMensaje("El teléfono es inválido.");
         txtTelefonoNum1.focus();

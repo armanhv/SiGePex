@@ -1,4 +1,6 @@
+
 <?php
+include_once '../../domain/ingresos.php';
 
 class cuentasPorCobrar {
 

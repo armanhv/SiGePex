@@ -15,5 +15,5 @@ foreach ($cuentasPorCobrar as $currentCuentaPorCobrar) {
       
     $monto = $currentCuentaPorCobrar->monto;
     
-    echo '<option value=' . $idCuentasPorCobrar . '>'  . $monto .'> </option>';
+    echo '<option value=' . $idCuentasPorCobrar . '>'  . $monto .' </option>';
 }

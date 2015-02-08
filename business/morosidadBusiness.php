@@ -29,10 +29,15 @@ class morosidadBusiness {
         $resultado = $this->morosidadData->eliminarMorosidad($idMorosidad);
         return $resultado;
     }
-
+    
     //metodo que se utiliza para obtener todos las morosidades
     public function obtenerMorosidades() {
         $resultado = $this->morosidadData->obtenerMorosidades();
+        return $resultado;
+    }
+    //metodo que se utiliza para obtener todos las morosidades
+    public function obtenerMorosidadesCliente() {
+        $resultado = $this->morosidadData->obtenerMorosidadesCliente();
         return $resultado;
     }
     
@@ -41,15 +46,19 @@ class morosidadBusiness {
         return $resultado;
     }
     
-    //metodo que se utiliza para obtener todos las morosidades
-//    public function cargarMorosidad() {
-//        $resultado = $this->morosidadData->cargarMorosidad();
+//    public function cargarCliente($identificacionEmpleado) {
+//        $resultado = $this->morosidadData->cargarCliente($identificacionEmpleado);
 //        return $resultado;
 //    }
     
-    public function cargarCliente($identificacionEmpleado) {
-        $resultado = $this->licenciaData->cargarCliente($identificacionEmpleado);
+    public function obtenerEmpleadosMorosidad() {
+        $resultado = $this->morosidadData->obtenerEmpleadosMorosidad();
         return $resultado;
+    }
+    
+    public function buscarEmpleadosMorosidad($idCliente) {
+        $cliente = $this->morosidadData->buscarEmpleadosMorosidad($idCliente);
+        return $cliente;
     }
 }
 
