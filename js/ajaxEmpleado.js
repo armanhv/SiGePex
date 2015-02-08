@@ -201,10 +201,10 @@ function limpiarCampos() {
     txtPass.value = "";
     txtCantidadHorasLaborales.value = "";
     txtCostoHoraExtra.value = "";
-     document.getElementById("cbxEmpleado").selectedIndex=0;
+    document.getElementById("cbxEmpleado").selectedIndex = 0;
     obtenerLicenciasEmpleado();
     obtenerTelefonosEmpleado();
-    
+
 }
 
 /********************* Seccion de validaciones ************************/

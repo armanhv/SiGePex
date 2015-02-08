@@ -23,7 +23,7 @@ function insertarCuentaPorCobrar() {
                 url: '../../actions/cuentasporcobrar/insertarCuentaPorCobrarAction.php',
                 type: 'post',
                 success: function (response) {
-                    limpiarCampos();
+                    limpiarCamposCuentas();
                     obtenerCuentasPorCobrar();
                     $("#resultado").html(response);
                 },
@@ -38,7 +38,7 @@ function insertarCuentaPorCobrar() {
 }
 
 function borrarCuentaPorCobrar() {
-    var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
+    var idCuentasPorCobrar = $('input:radio[name=idCuentaPorCobrar]:checked').val();
 
     var parametros = {
         "idCuentasPorCobrar": idCuentasPorCobrar
@@ -51,7 +51,7 @@ function borrarCuentaPorCobrar() {
         success: function (response) {
 
             $("#resultado").html(response);
-            limpiarCampos();
+            limpiarCamposCuentas();
             obtenerCuentasPorCobrar();
         },
         error: function (textStatus, errorThrown) {
@@ -67,12 +67,11 @@ function actualizarCuentaPorCobrar() {
 
     if (validarCuentasPorCobrar() && validarFecha(fechaPago)) {
 
-        var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
+        var idCuentasPorCobrar = $('input:radio[name=idCuentaPorCobrar]:checked').val();
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var idCliente = document.getElementById("cbxCliente").value;
         var monto = document.getElementById("txtMonto").value;
         monto = monto.replace(/₡/g, "");
-
 
         var parametros = {
             "idCuentasPorCobrar": idCuentasPorCobrar,
@@ -81,13 +80,14 @@ function actualizarCuentaPorCobrar() {
             "fechaPago": obtenerFechaFormatoSQL(fechaPago),
             "monto": monto
         };
+
         if (confirm("¿Desea modificar esta cuenta por cobrar?")) {
             $.ajax({
                 data: parametros,
                 url: '../../actions/cuentasporcobrar/actualizarCuentaPorCobrarAction.php',
                 type: 'post',
                 success: function (response) {
-                    limpiarCampos();
+                    limpiarCamposCuentas();
                     obtenerCuentasPorCobrar();
                     $("#resultado").html(response);
                 },
@@ -119,51 +119,18 @@ function obtenerCuentasPorCobrar() {
 
 }
 
-function buscarCuentasPorCobrar() {
-
-
-    var iID = $('input:radio[name=idCuentaPorCobrar]:checked').val();
-
-    alert("JOSEPH" + iID);
-    $.ajax({
-        url: "../../actions/cuentasporcobrar/buscarCuentasPorCobrarAction.php",
-        type: "POST",
-        datatype: "JSON",
-        data: {
-            valueAction: 1,
-            id: iID
-        },
-        success: function (msg)
-        {
-            var txtFechaPago = document.getElementById("txtFechaPago");
-            var txtMonto = document.getElementById("txtMonto");
-
-            $(cbxEmpleado).val(msg.idEmpleado);
-            $(cbxCliente).val(msg.idCliente);
-            cbxCliente.value = msg.idCliente;
-            txtFechaPago.value = msg.fechaPago;
-            txtMonto.value = msg.monto;
-
-        }
-    });
-}
-
-//----------------
-
 function cargarCuentasPorCobrar() {
-    var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
+    var idCuentasPorCobrar = $('input:radio[name=idCuentaPorCobrar]:checked').val();
 
     var parametros = {
         "idCuentasPorCobrar": idCuentasPorCobrar
     };
-    alert('aqui');
     $.ajax({
         data: parametros,
         url: '../../actions/cuentasporcobrar/cargarCuentasPorCobrar.php',
         type: 'post',
         success: function (response) {
             $("#tablaCuentasPorCobrar").html(response);
-            alert('fin');
         }
     });
 }
@@ -193,22 +160,12 @@ function obtenerClientesCuentas() {
     });
 }
 
-//----------------
-
-function  limpiarCampos() {
-
-    var cbxEmpleado = document.getElementById("cbxEmpleado").value;
-    var cbxCliente = document.getElementById("cbxCliente").value;
-    var txtFechaPago = document.getElementById("txtFechaPago");
-    var txtMonto = document.getElementById("txtMonto");
-
-    cbxEmpleado.value = "";
-    cbxCliente.value = "";
-    txtFechaPago.value = "";
-    txtMonto.value = "";
-
+function limpiarCamposCuentas() {
+    $("#cbxEmpleado").val("0");
+    $("#cbxCliente").val("0");
+    $("#txtFechaPago").val("");
+    $("#txtMonto").val("");
 }
-
 
 /********************* Seccion de validaciones ************************/
 function validarCuentasPorCobrar() {
@@ -238,8 +195,4 @@ function validarCuentasPorCobrar() {
     }
 
     return true;
-}
-
-function mandarMensaje(mensaje) {
-    alert(mensaje);
 }

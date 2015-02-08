@@ -20,7 +20,7 @@ function insertarMorosidad() {
                 success: function (response) {
 
                     $("#resultado").html(response);
-                    limpiarCampos();
+                    limpiarCamposMorosidad();
                     obtenerMorosidades();
                 }
             });
@@ -42,7 +42,7 @@ function borrarMorosidad() {
         success: function (response) {
 
             $("#resultado").html(response);
-            limpiarCampos();
+            limpiarCamposMorosidad();
             obtenerMorosidades();
         }
     });
@@ -72,7 +72,7 @@ function actualizarMorosidad() {
                 success: function (response) {
 
                     $("#resultado").html(response);
-                    limpiarCampos();
+                    limpiarCamposMorosidad();
                     obtenerMorosidades();
                 }
             });
@@ -151,7 +151,7 @@ function buscarMorosidad() {
 }
 
 
-function  limpiarCampos() {
+function  limpiarCamposMorosidad() {
 
     var cbxCliente = document.getElementById("cbxCliente").value;
     var txtFechaMorosidad = document.getElementById("txtFechaMorosidad");

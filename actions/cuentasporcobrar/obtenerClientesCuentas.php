@@ -6,7 +6,7 @@ include '../../business/clienteBusiness.php';
 $clienteBusiness = new clienteBusiness();
 $listaCliente = $clienteBusiness->obtenerCliente();
 
-echo '<SELECT onClick="obtenerCuentasPorCobrar()"  NAME="cbxCliente" id="cbxCliente" SIZE=1>';
+echo '<SELECT onClick="obtenerCuentasPorCobrar()"  name="cbxCliente" id="cbxCliente" size=1>';
 echo '<option value="0">Seleccione un Cliente</option>';
 echo 'aqui';
 
