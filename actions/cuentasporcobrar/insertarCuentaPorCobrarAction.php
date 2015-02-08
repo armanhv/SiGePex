@@ -7,6 +7,10 @@ $idCliente = $_POST['idCliente'];
 $fechaPago = $_POST['fechaPago'];
 $monto = $_POST['monto'];
 
+$monto = str_replace(".", "", $monto);
+$monto = str_replace(",", ".", $monto);
+$monto = str_replace("₡", "", $monto);
+
 //comunicacion con busines
 $cuentasPorCobrarBusiness = new cuentasPorCobrarBusiness();
 

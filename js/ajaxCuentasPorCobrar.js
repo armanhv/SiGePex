@@ -1,17 +1,20 @@
 /******************* Metodos CRUD para Cuentas Por Cobrar ***************************/
 function insertarCuentaPorCobrar() {
 
-    if (validarCuentasPorCobrar()) {
+    var fechaPago = document.getElementById("txtFechaPago").value;
+
+    if (validarCuentasPorCobrar() && validarFecha(fechaPago)) {
+
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var idCliente = document.getElementById("cbxCliente").value;
-        var fechaPago = document.getElementById("txtFechaPago");
-        var monto = document.getElementById("txtMonto");
+        var monto = document.getElementById("txtMonto").value;
+        monto = monto.replace(/₡/g, "");
 
         var parametros = {
             "idEmpleado": idEmpleado,
             "idCliente": idCliente,
-            "fechaPago": fechaPago.value,
-            "monto": monto.value
+            "fechaPago": obtenerFechaFormatoSQL(fechaPago),
+            "monto": monto
         };
         if (confirm("¿Desea agregar esta cuenta por cobrar?")) {
 
@@ -20,10 +23,9 @@ function insertarCuentaPorCobrar() {
                 url: '../../actions/cuentasporcobrar/insertarCuentaPorCobrarAction.php',
                 type: 'post',
                 success: function (response) {
-
-                    $("#resultado").html(response);
                     limpiarCampos();
                     obtenerCuentasPorCobrar();
+                    $("#resultado").html(response);
                 },
                 error: function (textStatus, errorThrown) {
                     alert("Status: " + textStatus);
@@ -60,19 +62,24 @@ function borrarCuentaPorCobrar() {
 }
 
 function actualizarCuentaPorCobrar() {
-    if (validarCuentasPorCobrar()) {
+
+    var fechaPago = document.getElementById("txtFechaPago").value;
+
+    if (validarCuentasPorCobrar() && validarFecha(fechaPago)) {
+
         var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var idCliente = document.getElementById("cbxCliente").value;
-        var fechaPago = document.getElementById("txtFechaPago");
-        var monto = document.getElementById("txtMonto");
+        var monto = document.getElementById("txtMonto").value;
+        monto = monto.replace(/₡/g, "");
+
 
         var parametros = {
             "idCuentasPorCobrar": idCuentasPorCobrar,
             "idEmpleado": idEmpleado,
             "idCliente": idCliente,
-            "fechaPago": fechaPago.value,
-            "monto": monto.value
+            "fechaPago": obtenerFechaFormatoSQL(fechaPago),
+            "monto": monto
         };
         if (confirm("¿Desea modificar esta cuenta por cobrar?")) {
             $.ajax({
@@ -80,10 +87,9 @@ function actualizarCuentaPorCobrar() {
                 url: '../../actions/cuentasporcobrar/actualizarCuentaPorCobrarAction.php',
                 type: 'post',
                 success: function (response) {
-
-                    $("#resultado").html(response);
                     limpiarCampos();
                     obtenerCuentasPorCobrar();
+                    $("#resultado").html(response);
                 },
                 error: function (textStatus, errorThrown) {
                     alert("Status: " + textStatus);
@@ -102,7 +108,7 @@ function obtenerCuentasPorCobrar() {
         "idCliente": idCliente
     };
     $.ajax({
-        data:parametros,
+        data: parametros,
         url: '../../actions/cuentasporcobrar/obtenerCuentasPorCobrarAction.php',
         type: 'post',
         success: function (response) {
@@ -114,9 +120,11 @@ function obtenerCuentasPorCobrar() {
 }
 
 function buscarCuentasPorCobrar() {
+    
 
     var iID = $('input:radio[name=idCuentaPorCobrar]:checked').val();
 
+    alert("JOSEPH" + iID);
     $.ajax({
         url: "../../actions/cuentasporcobrar/buscarCuentasPorCobrarAction.php",
         type: "POST",
@@ -129,7 +137,7 @@ function buscarCuentasPorCobrar() {
         {
             var txtFechaPago = document.getElementById("txtFechaPago");
             var txtMonto = document.getElementById("txtMonto");
-            
+
             $(cbxEmpleado).val(msg.idEmpleado);
             $(cbxCliente).val(msg.idCliente);
             cbxCliente.value = msg.idCliente;
@@ -144,6 +152,7 @@ function buscarCuentasPorCobrar() {
 
 function cargarCuentasPorCobrar() {
     var idCuentasPorCobrar = document.getElementById("idCuentaPorCobrar").value;
+    
     var parametros = {
         "idCuentasPorCobrar": idCuentasPorCobrar
     };
@@ -207,6 +216,8 @@ function validarCuentasPorCobrar() {
     var idCliente = document.getElementById("cbxCliente").value;
     var fechaPago = document.getElementById("txtFechaPago").value;
     var monto = document.getElementById("txtMonto").value;
+    monto = monto.replace(/₡/g, "");
+
     if (idEmpleado === '0') {
         mandarMensaje("Debe seleccionar un empleado");
         cbxEmpleado.focus();
