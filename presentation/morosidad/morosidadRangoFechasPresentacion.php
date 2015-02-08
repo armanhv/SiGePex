@@ -13,12 +13,13 @@
         <script type="text/javascript" src="../../js/validacion/jquery.formatCurrency.js"></script>
         <script type="text/javascript" src="../../js/validacion/utilidades.js"></script>
         <link rel="stylesheet" href="../../js/validacion/jquery-ui.css">
+        <link rel="stylesheet" href="../../css/tablasSimples.css">
     </script>
 </head>
 <body onload=" obtenerClientesMorosidades();">
-    
+    <div style="margin-left: 300px">
         <p><font size=6>Módulo de Morosidades por Rango de fechas</font></p>
-        
+
         <table>
             <tr>
                 <td>
@@ -35,7 +36,7 @@
             </tr>
         </table>
         <!--</div>-->
-        <div style="margin-left: 500px">
+
         <br>
         <span id="morosidades"></span><br><br>
 
