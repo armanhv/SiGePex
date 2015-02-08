@@ -18,8 +18,7 @@
 
     </script>
 </head>
-<body onload="obtenerMorosidades();
-        obtenerClientes();">
+<body onload=" obtenerClientes();">
     <div style="margin-left: 500px">
         <p><font size=6>Módulo de Morosidad</font></p>
 

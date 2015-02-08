@@ -1,15 +1,12 @@
 <?php
 
 include '../../business/morosidadBusiness.php';
+$idCliente= $_POST['idCliente'];
 
-$listaMorosidadesCliente = $morosidadBusiness->obtenerMorosidadesCliente();
-
-$idEmpleado = $_POST['idEmpleado'];
-
-if ($idEmpleado != 0) {
+if ($idCliente != 0) {
     //comunicacion con Business
     $morosidadBusiness = new morosidadBusiness();
-    $listaMorosidadesCliente = $morosidadBusiness->buscarMorosidad($idEmpleado);
+    $listaMorosidadesCliente = $morosidadBusiness->obtenerMorosidadesCliente($idCliente);
 
 echo '<SELECT onClick="cargarMorosidad()" NAME="cbxMorosidad" id="cbxMorosidad" SIZE=1>';
 echo '<option value=0>Elija un monto de morosidad</option>';

@@ -6,7 +6,7 @@ include '../../business/empleadoBusiness.php';
 $empleadoBusiness = new empleadoBusiness();
 $listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 
-echo '<SELECT  name="cbxEmpleadoCuenta" id="cbxEmpleadoCuenta" size=1>';
+echo '<SELECT  name="cbxEmpleado" id="cbxEmpleado" size=1>';
 echo '<option value="0">Seleccione un Empleado</option>';
 
 foreach ($listaEmpleados as $currentEmpleado) {

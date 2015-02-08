@@ -76,8 +76,8 @@ class cuentasPorCobrarData {
         return $cuentasPorCobrar;
     }
 
-    public function obtenerCuentasPorCobrar() {
-        $query = "select * from tbcuentasporcobrar";
+    public function obtenerCuentasPorCobrar($idCliente) {
+        $query = "select * from tbcuentasporcobrar where idCliente=".$idCliente;
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $arrayCuentaPorCobrar = [];
 

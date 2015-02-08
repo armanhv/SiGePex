@@ -4,9 +4,9 @@ include '../../business/empleadoBusiness.php';
 
 //comunicacion con Business
 $empleadoBusiness = new EmpleadoBusiness();
-$listaEmpleados = $empleadoBusiness->obtenerEmpleadosMorosidad();
+$listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 
-echo '<SELECT  name="cbxEmpleadoMorosidad" id="cbxEmpleadoMorosidad" size=1>';
+echo '<SELECT  name="cbxEmpleado" id="cbxEmpleado" size=1>';
 echo '<option value="0">Seleccione un Empleado</option>';
 
 foreach ($listaEmpleados as $currentEmpleado) {

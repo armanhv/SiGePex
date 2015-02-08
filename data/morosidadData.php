@@ -87,8 +87,8 @@ class morosidadData {
     }
 
     //Metodo para obtener todos las morosidades
-    public function obtenerMorosidadesCliente() {
-        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select * from tbmorosidad");
+    public function obtenerMorosidadesCliente($idCliente) {
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), "select * from tbmorosidad where idCliente=".$idCliente);
         $this->objConexionBaseDatos->cerrarConexion();
         $arrayMorosidad = [];
 

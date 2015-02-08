@@ -3,17 +3,27 @@
 include '../../business/cuentasPorCobrarBusiness.php';
 
 //comunicacion con Business
-$cuentasPorCobrarBusiness = new cuentasPorCobrarBusiness();
-$cuentasPorCobrar = $cuentasPorCobrarBusiness->obtenerCuentasPorCobrar();
+$idCliente = $_POST['idCliente'];
+if ($idCliente != 0) {
+    $cuentasPorCobrarBusiness = new cuentasPorCobrarBusiness();
+    $cuentasPorCobrar = $cuentasPorCobrarBusiness->obtenerCuentasPorCobrar($idCliente);
 
-echo '<SELECT onClick="buscarCuentasPorCobrar()" NAME="cbxCuentasPorCobrar" id="cbxCuentasPorCobrar" SIZE=1>';
-echo '<option value=0>Seleccione una Cuenta Por Cobrar</option>';
-
-foreach ($cuentasPorCobrar as $currentCuentaPorCobrar) {
-
-      $idCuentasPorCobrar = $currentCuentaPorCobrar->idCuentasPorCobrar;
-      
-    $monto = $currentCuentaPorCobrar->monto;
+    if (count($cuentasPorCobrar) != 0) {
+        echo '<label>Cuentas por Cobrar</label><br>
+          <table>
+    <tr>
+    <td>Monto</td>&nbsp;&nbsp; <td>    Fecha Limite de Pago</td>
     
-    echo '<option value=' . $idCuentasPorCobrar . '>'  . $monto .' </option>';
+    </tr>
+    ';
+        foreach ($cuentasPorCobrar as $currentCuentaPorCobrar) {
+            echo '
+            <tr>
+                <td><input onClick="buscarCuentasPorCobrar()"  type="radio" id="idCuentaPorCobrar" name="idCuentaPorCobrar" value="' . $currentCuentaPorCobrar->idCuentasPorCobrar . '" checked>'
+            . '<a>' . $currentCuentaPorCobrar->monto . '</a></td>&nbsp;&nbsp; <td>&nbsp;&nbsp; <a>' . $currentCuentaPorCobrar->fechaPago . '</a></td>                       
+            </tr>';
+        }// fin foreach
+
+        echo '</table>';
+    }
 }

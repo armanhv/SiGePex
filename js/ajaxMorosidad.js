@@ -5,7 +5,7 @@ function insertarMorosidad() {
         var idCliente = document.getElementById("cbxCliente").value;
         var fechaMorosidad = document.getElementById("txtFechaMorosidad");
         var monto = document.getElementById("txtMonto");
-
+        
         var parametros = {
             "idCliente": idCliente,
             "fechaMorosidad": fechaMorosidad.value,
@@ -86,7 +86,7 @@ function obtenerMorosidades() {
 
     $.ajax({
         data: '',
-        url: '../../actions/morosidad/obtenerMorosidades.php',
+        url: '../../actions/morosidad/obtenerMorosidadesCliente.php',
         type: 'post',
         success: function (response) {
 //alert('hola');
@@ -103,28 +103,28 @@ function obtenerMorosidades() {
 
 }
 
-//
-//function obtenerMorosidadesCliente() {
-//    
-//    var idCliente = document.getElementById("cbxMorosidad").value;
-//
-//    var parametros = {
-//        "idCliente": idCliente
-//    };
-//
-//            $('select').on('change', function () {
-//                alert(this.value); // or $(this).val()
-//            });
-//            
-//    $.ajax({
-//        data: parametros,
-//        url: '../../actions/morosidad/obtenerMorosidadesCliente.php',
-//        type: 'post',
-//        success: function (response) {
-//            $("#morosidadCliente").html(response);
-//        }
-//    });
-//}
+
+function obtenerMorosidadesCliente() {
+    
+    var idCliente = document.getElementById("cbxCliente").value;
+
+    var parametros = {
+        "idCliente": idCliente
+    };
+
+            $('select').on('change', function () {
+                alert(this.value); // or $(this).val()
+            });
+            
+    $.ajax({
+        data: parametros,
+        url: '../../actions/morosidad/obtenerMorosidadesCliente.php',
+        type: 'post',
+        success: function (response) {
+            $("#morosidadCliente").html(response);
+        }
+    });
+}
 
 function buscarMorosidad() {
 

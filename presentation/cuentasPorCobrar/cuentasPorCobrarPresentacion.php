@@ -4,23 +4,22 @@
         <title>SiGePex</title>     
         <script type="text/javascript" src="../../js/ajaxCuentasPorCobrar.js"></script> 
         <script type="text/javascript" src="../../js/ajaxCliente.js"></script> 
-        <script type="text/javascript" src="../../js/jquery.js"></script>    
+        <script type="text/javascript" src="../../js/jquery-2-1-3.js"></script> 
+        <script type="text/javascript" src="../../js/validacion/utilidades.js"></script>    
     </head>
 
-    <body style="" onload="obtenerCuentasPorCobrar();
-            obtenerClientes();
+    <body style="" onload="obtenerClientesCuentas();
             obtenerEmpleadosCuentaCobrar();
-            obtenerClientesMorosos();">
-        <div style="margin-left: 500px"><br><br>
-            <p><font size=6>Módulo Cuentas por Cobrar</font></p><br><br>
+            ">
+        <div style="margin-left: 500px">
+            <p><font size=6>Módulo Cuentas por Cobrar</font></p>
 
             <div id="tablaCuentasPorCobrar">
                 <table>
-                    
-                    <label for="Empleado">Empleado:</label>
-                    <div id="empleados"></div><br>
-                    <label for="cliente">Cliente:</label>
-                    <div id="clientes"></div><br>
+                    <label for="Empleado">Empleado:</label>&nbsp;&nbsp;
+                    <span id="empleados"></span><br><br>
+                    <label for="cliente">Cliente:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="clientes"></span><br><br>
 
                     <tr>
                         <td><label for="fechaPago">Fecha Pago:</label></td>
@@ -41,8 +40,6 @@
             </div>
             <br>
             <span id="resultado"></span>
-
-            <label for="CuentasPorCobrar">Cuentas Por Cobrar:</label>
             <span id="cuentasPorCobrar"></span><br>
 
 
