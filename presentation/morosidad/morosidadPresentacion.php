@@ -18,42 +18,30 @@
 
     </script>
 </head>
-<body onload=" obtenerClientes();">
+<body onload=" obtenerClientes();
+        moneda();">
     <div style="margin-left: 500px">
-        <p><font size=6>Módulo de Morosidad</font></p>
-
-        <label for="clientes">Cliente:</label>
-        <div id="clientes"></div><br>
-        <table>
-
-            <tr>
-                <td>
-                    <label for="fechaMorosidad">Fecha:&nbsp;&nbsp;</label>
-                </td>
-                <td>
-                    <input type="text" value="" name="txtFechaMorosidad" id="txtFechaMorosidad">
-                </td>
-                <td></td>
-
-            <tr>
-                <td>
-                    <label for="monto">Monto:&nbsp;&nbsp;</label>
-                </td>
-                <td>
-                    <input type="text" value="" name="txtMonto" id="txtMonto">
-                </td>
-                <td></td>
-            </tr>
-
-            </tr>
-
-            <tr>
-                <td><input type="button" value="Insertar" onclick="insertarMorosidad()">&nbsp;</td>
-                <td><input type="button" value="Modificar" onclick="actualizarMorosidad()">&nbsp;</td>
-                <td><input type="button" value="Borrar" onclick="borrarMorosidad()">&nbsp;</td>
-            </tr>
-        </table>
-        <!--</div>-->
+        <p>Módulo de Morosidad</p>
+        <div id="tablaMorosidad">
+            <table>
+                <tr>
+                    <td><label for="clientes">Cliente:</label></td>
+                    <td><div id="clientes"></div></td>
+                </tr>
+                <tr>
+                    <td><label for="fechaMorosidad">Fecha:&nbsp;&nbsp;</label></td>
+                    <td><input type="text" value="" name="txtFechaMorosidad" id="txtFechaMorosidad"></td>
+                <tr>
+                    <td><label for="monto">Monto:&nbsp;&nbsp;</label></td>
+                    <td><input type="text" value="" name="txtMonto" id="txtMonto" class="currency"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="Insertar" onclick="insertarMorosidad()">&nbsp;</td>
+                    <td><input type="button" value="Modificar" onclick="actualizarMorosidad()">&nbsp;</td>
+                    <td><input type="button" value="Borrar" onclick="borrarMorosidad()">&nbsp;</td>
+                </tr>
+            </table>
+        </div>
         <br>
         <span id="resultado"></span>
         <br>
@@ -65,3 +53,10 @@
 </body>
 </html>
 
+<!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
+<script type="text/JavaScript">
+
+    $("#txtFechaMorosidad").datepicker();
+    datePickerLatino();
+
+</script>
