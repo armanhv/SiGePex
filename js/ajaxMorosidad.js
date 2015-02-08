@@ -1,16 +1,15 @@
 function insertarMorosidad() {
-    var fechaMorosidad = document.getElementById("txtFechaMorosidad").value;
 
-    if (validarMorosidad() && validarFecha(fechaMorosidad)) {
+    if (validarMorosidad()) {
 
         var idCliente = document.getElementById("cbxCliente").value;
-        var monto = document.getElementById("txtMonto").value;
-        monto = monto.replace(/₡/g, "");
+        var fechaMorosidad = document.getElementById("txtFechaMorosidad");
+        var monto = document.getElementById("txtMonto");
 
         var parametros = {
             "idCliente": idCliente,
-            "fechaMorosidad": obtenerFechaFormatoSQL(fechaMorosidad),
-            "monto": monto
+            "fechaMorosidad": fechaMorosidad.value,
+            "monto": monto.value
         };
 
         if (confirm("¿Desea agregar esta morosidad?")) {
@@ -19,9 +18,10 @@ function insertarMorosidad() {
                 url: '../../actions/morosidad/insertarMorosidad.php',
                 type: 'post',
                 success: function (response) {
-                    limpiarCamposMorosidad();
-                    obtenerMorosidades();
+
                     $("#resultado").html(response);
+                    limpiarCamposMorosidad();
+                    obtenerMorosidadesCliente();
                 }
             });
         }
@@ -29,7 +29,7 @@ function insertarMorosidad() {
 }
 
 function borrarMorosidad() {
-    var idMorosidad = document.getElementById("cbxMorosidad").value;
+    var idMorosidad = $('input:radio[name=idMorosidad]:checked').val();
 
     var parametros = {
         "idMorosidad": idMorosidad
@@ -43,7 +43,7 @@ function borrarMorosidad() {
 
             $("#resultado").html(response);
             limpiarCamposMorosidad();
-            obtenerMorosidades();
+            obtenerMorosidadesCliente();
         }
     });
 }
@@ -52,7 +52,7 @@ function actualizarMorosidad() {
 
     if (validarMorosidad()) {
 
-        var idMorosidad = document.getElementById("cbxMorosidad").value;
+        var idMorosidad = $('input:radio[name=idMorosidad]:checked').val();
         var idCliente = document.getElementById("cbxCliente").value;
         var fechaMorosidad = document.getElementById("txtFechaMorosidad");
         var monto = document.getElementById("txtMonto");
@@ -73,62 +73,52 @@ function actualizarMorosidad() {
 
                     $("#resultado").html(response);
                     limpiarCamposMorosidad();
-                    obtenerMorosidades();
+                    obtenerMorosidadesCliente();
                 }
             });
         }
     }
 }
 
-function obtenerMorosidades() {
+function obtenerClientesMorosidades() {
 
     //alert('hola');
 
     $.ajax({
         data: '',
-        url: '../../actions/morosidad/obtenerMorosidadesCliente.php',
+        url: '../../actions/morosidad/obtenerClientesMorosidades.php',
         type: 'post',
         success: function (response) {
 //alert('hola');
-            $("#morosidad").html(response);
-
-        },
-        error: function (textStatus, errorThrown) {
-            alert("Status: " + textStatus);
-            alert("Error: " + errorThrown);
+            $("#clientes").html(response);
 
         }
-
     });
 
 }
 
 
 function obtenerMorosidadesCliente() {
-
     var idCliente = document.getElementById("cbxCliente").value;
+
+    // alert("entro a obtener morosidades idCliente="+idCliente);
 
     var parametros = {
         "idCliente": idCliente
     };
-
-    $('select').on('change', function () {
-        alert(this.value); // or $(this).val()
-    });
-
     $.ajax({
         data: parametros,
         url: '../../actions/morosidad/obtenerMorosidadesCliente.php',
         type: 'post',
         success: function (response) {
-            $("#morosidadCliente").html(response);
+            $("#morosidades").html(response);
         }
     });
 }
 
 function buscarMorosidad() {
 
-    var iID = document.getElementById("cbxMorosidad").value;
+    var iID = $('input:radio[name=idMorosidad]:checked').val();
     $.ajax({
         url: "../../actions/morosidad/buscarMorosidadAction.php",
         type: "POST",
@@ -166,20 +156,20 @@ function  limpiarCamposMorosidad() {
 
 /********************* Seccion de validaciones ************************/
 function validarMorosidad() {
-
+//    var idMorosidad = document.getElementById("cbxMorosidad").value;
     var idCliente = document.getElementById("cbxCliente").value;
     var monto = document.getElementById("txtMonto").value;
     var fechaMorosidad = document.getElementById("txtFechaMorosidad").value;
-    monto = monto.replace(/₡/g, "");
 
     if (idCliente === '0') {
         mandarMensaje("Debe seleccionar un cliente");
         cbxCliente.focus();
         return false;
     } else if (($.trim(fechaMorosidad) === "")) {
-        mandarMensaje("La fecha no puede estar vacía");
+        mandarMensaje("La fecha es inválida");
         txtFechaMorosidad.focus();
         return false;
+
     }
 
     else if (!(validarNumero(monto)) || ($.trim(monto) === "")) {
