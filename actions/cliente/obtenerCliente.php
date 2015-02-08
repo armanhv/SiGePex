@@ -15,8 +15,4 @@ foreach ($listaCliente as $currentCliente) {
             $currentCliente->primerApellido . "  " . $currentCliente->segundoApellido . '</option>';
 }
 
-<<<<<<< HEAD
 echo '</select>';
-=======
-echo '</select>';
->>>>>>> origin/master
