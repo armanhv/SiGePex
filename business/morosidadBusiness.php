@@ -46,19 +46,9 @@ class morosidadBusiness {
         return $resultado;
     }
     
-//    public function cargarCliente($identificacionEmpleado) {
-//        $resultado = $this->morosidadData->cargarCliente($identificacionEmpleado);
-//        return $resultado;
-//    }
-    
-    public function obtenerEmpleadosMorosidad() {
-        $resultado = $this->morosidadData->obtenerEmpleadosMorosidad();
+    public function obtenerMorosidadesRangoFechas($fechaInicio,$fechaFinal){
+         $resultado = $this->morosidadData->obtenerMorosidadesRangoFechas($fechaInicio,$fechaFinal);
         return $resultado;
-    }
-    
-    public function buscarEmpleadosMorosidad($idCliente) {
-        $cliente = $this->morosidadData->buscarEmpleadosMorosidad($idCliente);
-        return $cliente;
     }
 }
 

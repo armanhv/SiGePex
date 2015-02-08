@@ -99,6 +99,19 @@ class morosidadData {
         return $arrayMorosidad;
     }
     
+    public function obtenerMorosidadesRangoFechas($fechaInicio,$fechaFinal){
+        $query="select * from tbmorosidad where fechaMorosidad between '".$fechaInicio."' and '".$fechaFinal."'";
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(),$query);
+        $this->objConexionBaseDatos->cerrarConexion();
+        $arrayMorosidad = [];
+
+        while ($row = mysqli_fetch_array($resultado)) {
+            $currentMorosidad= new morosidad($row['idMorosidad'], $row['idCliente'], $row['fechaMorosidad'], $row['monto']);
+            array_push($arrayMorosidad, $currentMorosidad);
+        }
+        return $arrayMorosidad;
+    }
+    
 
 }
 

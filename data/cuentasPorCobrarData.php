@@ -56,7 +56,7 @@ class cuentasPorCobrarData {
     //Metodo para Actualizar una Cuenta Por Cobrar
     public function actualizarCuentaPorCobrar($cuentaPorCobrar) {
         $query = "update tbcuentasporcobrar set idEmpleado='" . $cuentaPorCobrar->idEmpleado . "', idCliente = '"
-                . $cuentaPorCobrar->idCliente . "', fecha = '" . $cuentaPorCobrar->fechaPago . "',"
+                . $cuentaPorCobrar->idCliente . "', fechaPago = '" . $cuentaPorCobrar->fechaPago . "',"
                 . " monto = '" . $cuentaPorCobrar->monto . "'  where idCuentasPorCobrar=" . $cuentaPorCobrar->idCuentasPorCobrar . " ;";
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $this->objConexionBaseDatos->cerrarConexion();
@@ -71,7 +71,7 @@ class cuentasPorCobrarData {
         $query = "select* from tbcuentasporcobrar where idCuentasPorCobrar=" . $idCuentasPorCobrar . ";";
         $resulGeneral = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $row = $resulGeneral->fetch_array();
-        $cuentasPorCobrar = new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fecha'], $row['monto']);
+        $cuentasPorCobrar = new cuentasPorCobrar($row['idCuentasPorCobrar'], $row['idEmpleado'], $row['idCliente'], $row['fechaPago'], $row['monto']);
         $this->objConexionBaseDatos->cerrarConexion();
         return $cuentasPorCobrar;
     }
