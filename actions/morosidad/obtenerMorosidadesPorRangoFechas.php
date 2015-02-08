@@ -3,9 +3,8 @@
 
 include '../../business/morosidadBusiness.php';
 $fechaInicio = $_POST['fechaInicio'];
-$fechaFinal = $_POST['fechaFin'];
+$fechaFinal = $_POST['fechaFinal'];
 
-if ($idCliente != 0) {
     //comunicacion con Business
     $morosidadBusiness = new morosidadBusiness();
     $listaMorosidades= $morosidadBusiness->obtenerMorosidadesRangoFechas($fechaInicio, $fechaFinal);
@@ -28,5 +27,4 @@ if ($idCliente != 0) {
 
         echo '</table>';
     }
-}
 

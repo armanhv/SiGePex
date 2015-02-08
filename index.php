@@ -27,6 +27,8 @@
         <br>
         <a href="presentation/morosidad/morosidadPresentacion.php">Morosidad</a>
         <br>
+        <a href="presentation/morosidad/morosidadRangoFechasPresentacion.php">Morosidad rango fechas</a>
+        <br>
         <a href="presentation/tipoServicio/tipoServicioPresentacion.php">Tipo de Servicio</a>
         <br>
         <a href="presentation/servicio/servicioPresentacion.php">Nuevo Servicio</a>
