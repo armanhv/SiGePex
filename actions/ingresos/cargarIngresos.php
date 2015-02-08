@@ -41,7 +41,7 @@ foreach ($listaEmpleados as $currentEmpleado) {
         echo '<option value="' . $idEmpleado . '">' . $nombreEmpleado . '</option>';
     }
 }
-
+echo '</select>';
 
 echo '</td>
         </tr>
@@ -86,7 +86,7 @@ foreach ($listaTipoPago as $currentTipo) {
         echo '<option value="' . $idTipoPago . '">' . $nombreTipo . '</option>';
     }
 }
-echo '/SELECT>';
+echo '</SELECT>';
 
 echo '</td>
         </tr>

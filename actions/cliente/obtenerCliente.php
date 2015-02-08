@@ -11,7 +11,8 @@ echo '<option value=0>Elija un Cliente</option>';
 
 foreach ($listaCliente as $currentCliente) {
 
-    echo '<option value=' . $currentCliente->idCliente . '>' . $currentCliente->nombreCliente . '</option>';
+    $nombre = $currentCliente->nombreCliente . " " . $currentCliente->primerApellido . " " . $currentCliente->segundoApellido;
+    echo '<option value=' . $currentCliente->idCliente . '>' . $nombre . '</option>';
 }
 
 echo '</select>';

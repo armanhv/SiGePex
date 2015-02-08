@@ -31,7 +31,7 @@ $pagoBusines = new pagoPeriodoBusiness();
 //se crea una instancia de pagoPeriodo
 $pagoPeriodo = new pagoPeriodo($idPago, $idEmpleado, $fechaInicoPeriodo, $fechaFinPeriodo, $salarioBasePeriodo, $montoHorasExtra, $rebajosPeriodo, $descripcionRebajo);
 
-//se inserta el horario
+//se actualiza el pago
 $resultado = $pagoBusines->actualizarPagoPeriodo($pagoPeriodo);
 
 if ($resultado) {

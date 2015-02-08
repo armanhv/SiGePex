@@ -13,7 +13,7 @@ foreach ($listaEmpleados as $currentEmpleado) {
     $idCedula = $currentEmpleado->cedulaEmpleado;
     $nombreEmpleado = $currentEmpleado->nombreEmpleado;
     $primerApellido = $currentEmpleado->primerApellidoEmpleado;
-    echo '<option value=' . $idEmpleado . '>' . $idCedula .' - '. $nombreEmpleado . ' - ' . $primerApellido . '</option>';
+    echo '<option value=' . $idEmpleado . '>' . $idCedula . ' - ' . $nombreEmpleado . ' - ' . $primerApellido . '</option>';
 }
 
 

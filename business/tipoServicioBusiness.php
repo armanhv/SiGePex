@@ -1,6 +1,6 @@
 <?php
 
-include "../data/tipoServicioData.php";
+include "../../data/tipoServicioData.php";
 
 class tipoServicioBusines {
 

@@ -1,8 +1,8 @@
 <?php
 
-include 'baseDatos.php';
+include_once 'baseDatos.php';
 include '../../domain/tipoServicio.php';
-include '../../utilidades/utilidadesGenerales.php';
+include_once '../../utilidades/utilidadesGenerales.php';
 
 class tipoServicioData {
 
@@ -34,7 +34,7 @@ class tipoServicioData {
 
         $query = "update tbtiposervicio set nombreTipoServicio='" . $tipoServicio->nombreTipoServicio
                 . "', precioTipoServicio=" . $tipoServicio->precioTipoServicio
-                . ", descripcionTipoServicio=" . $tipoServicio->descripcionTipoServicio
+                . ", descripcionTipoServicio='" . $tipoServicio->descripcionTipoServicio
                 . "' where (idTipoServicio=" . $tipoServicio->idTipoServicio . ");";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
