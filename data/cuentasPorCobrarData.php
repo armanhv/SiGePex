@@ -100,6 +100,10 @@ class cuentasPorCobrarData {
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         while ($row = mysqli_fetch_array($resultado)) {
             $currentCuentaPorCobrarMorosa = new morosidad(0, $row['idCliente'], $row['fecha'], $row['monto']);
+        $query = "select * from tbcuentasporcobrar where fechaPago < '" . $fechaActual . "'";
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+        while ($row = mysqli_fetch_array($resultado)) {
+            $currentCuentaPorCobrarMorosa = new morosidad(0, $row['idCliente'], $row['fechaPago'], $row['monto']);
             $this->objMorosidadBusiness->insertarMorosidad($currentCuentaPorCobrarMorosa);
             $this->borrarCuentaPorCobrar($row['idCuentasPorCobrar']);
         }
