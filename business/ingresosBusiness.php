@@ -30,27 +30,35 @@ class ingresosBusiness {
         $resultado = $this->ingresosData->obtenerIngresos();
         return $resultado;
     }
-    
+
     public function buscarIngresos($idIngresos) {
         $ingresos = $this->ingresosData->buscarIngresos($idIngresos);
         return $ingresos;
     }
-    
+
     public function buscarEmpleado($idEmpleado) {
         $empleado = $this->ingresosData->buscarEmpleado($idEmpleado);
         return $cliente;
     }
+
     public function buscarCliente($idCliente) {
         $cliente = $this->ingresosData->buscarCliente($idCliente);
         return $cliente;
     }
+
     public function buscarTipoPago($idTipoPago) {
         $tipoPago = $this->ingresosData->buscarTipoPago($idTipoPago);
         return $tipoPago;
-    } 
+    }
+
     public function obtenerTipoPago() {
         $resultado = $this->ingresosData->obtenerTipoPago();
         return $resultado;
-    } 
+    }
+
+    public function buscarBoucherIngreso($idCliente, $idEmpleado, $fechaIngreso) {
+        $resultado = $this->ingresosData->buscarBoucherIngreso($idCliente, $idEmpleado, $fechaIngreso);
+        return $resultado;
+    }
 
 }

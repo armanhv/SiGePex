@@ -12,6 +12,9 @@ function insertarServicio() {
         var descripcion = $('#txtDescripcionServicio').val();
         var cargosExtra = $('#txtCargosExtra').val();
         var total = $('#montoTotal').text();
+        var numBoucher = $('#txtNumBoucher').val();
+        var fechaPago = $("#txtFechaPago").val();
+
         cargosExtra = cargosExtra.replace(/₡/g, "");
         total = total.replace(/₡/g, "");
 
@@ -23,7 +26,9 @@ function insertarServicio() {
             "formaPago": formaPago,
             "descripcion": descripcion,
             "cargosExtra": cargosExtra,
-            "total": total
+            "total": total,
+            "numBoucher": numBoucher,
+            "fechaPago": obtenerFechaFormatoSQL(fechaPago)
         };
 
         if (confirm("¿ Desea agregar este servicio ?")) {
@@ -40,7 +45,9 @@ function insertarServicio() {
                     $('#txtDescripcionServicio').val("");
                     $('#txtCargosExtra').val("");
                     $('#txtFechaServicio').val("");
-                    $('#montoTotal').text("₡ 0");
+                    $('#txtNumBoucher').val("");
+                    $('#txtFechaServicio').val("");
+                    $('#txtFechaPago').text("₡ 0");
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -63,8 +70,12 @@ function actualizarServicio() {
         var idServicio = document.getElementById("cbxServicios").value;
         var cargosExtra = $('#txtCargosExtra').val();
         var total = $('#montoTotal').text();
+        var numBoucher = $('#txtNumBoucher').val();
+        var fechaPago = $("#txtFechaPago").val();
         cargosExtra = cargosExtra.replace(/₡/g, "");
         total = total.replace(/₡/g, "");
+
+        alert(numBoucher + " forma: " + formaPago);
 
         var parametros = {
             "idServicio": idServicio,
@@ -75,7 +86,9 @@ function actualizarServicio() {
             "formaPago": formaPago,
             "descripcion": descripcion,
             "cargosExtra": cargosExtra,
-            "total": total
+            "total": total,
+            "numBoucher": numBoucher,
+            "fechaPago": obtenerFechaFormatoSQL(fechaPago)
         };
 
         if (confirm("¿ Desea modificar este servicio ?")) {
@@ -92,7 +105,9 @@ function actualizarServicio() {
                     $('#txtDescripcionServicio').val("");
                     $('#txtCargosExtra').val("");
                     $('#txtFechaServicio').val("");
-                    $('#montoTotal').text("₡ 0");
+                    $('#txtNumBoucher').val("");
+                    $('#txtFechaServicio').val("");
+                    $('#txtFechaPago').text("₡ 0");
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -188,6 +203,7 @@ function validarServicio() {
     var descripcion = $('#txtDescripcionServicio').val();
     var cargosExtra = $('#txtCargosExtra').val();
     var numBoucher = $('#txtNumBoucher').val();
+    var fechaPago = $("#txtFechaPago").val();
     cargosExtra = cargosExtra.replace(/₡/g, "");
 
     var fila = document.getElementById("123");
@@ -230,6 +246,13 @@ function validarServicio() {
         }
     }
 
+    if (formaPago === '1') {
+        if (validarFecha(fechaPago) === false) {
+            txtFechaPago.focus();
+            return false;
+        }
+    }
+
     if (!(validarNumero(cargosExtra)) || ($.trim(cargosExtra) === "")) {
         mandarMensaje("El precio del servicio es inválido");
         txtCargosExtra.focus();
@@ -245,14 +268,22 @@ function validarServicio() {
     return true;
 }
 
-function cambiarDisplay(id) {
+function cambiarDisplay() {
 
     var formaPago = $('#cbxTipoPago').val();
-    var fila = document.getElementById(id);
+    var filaFechaPago = document.getElementById("trFechaPago");
+    var filaBoucher = document.getElementById("trBoucher");
 
     if (formaPago === '2') {
-        fila.style.display = ""; //mostrar fila 
+        filaBoucher.style.display = ""; //mostrar fila Boucher
+        filaFechaPago.style.display = "none"; //ocultar fila Fecha 
+    } else if (formaPago === '1') {
+        filaBoucher.style.display = "none"; //ocultar fila Boucher
+        filaFechaPago.style.display = ""; //mostrar fila Fecha
     } else {
-        fila.style.display = "none"; //ocultar fila 
+        filaBoucher.style.display = "none"; //ocultar fila Boucher
+        filaFechaPago.style.display = "none"; //ocultar fila Fecha
+
     }
+
 }

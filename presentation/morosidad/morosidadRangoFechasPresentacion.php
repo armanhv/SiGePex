@@ -8,9 +8,7 @@
         <script type="text/javascript" src="../../js/ajaxMorosidad.js"></script>
         <script type="text/javascript" src="../../js/jquery.js"></script> 
 
-        <script type="text/javascript" src="../../js/validacion/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="../../js/validacion/jquery-ui.js"></script>
-        <script type="text/javascript" src="../../js/validacion/jquery.formatCurrency.js"></script>
         <script type="text/javascript" src="../../js/validacion/utilidades.js"></script>
         <link rel="stylesheet" href="../../js/validacion/jquery-ui.css">
         <link rel="stylesheet" href="../../css/tablasSimples.css">
@@ -43,4 +41,14 @@
     </div>
 </body>
 </html>
+
+<!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
+<script type="text/JavaScript">
+
+    $("#txtFechaInicio").datepicker();
+    $("#txtFechaFinal").datepicker();
+    datePickerLatino();
+
+</script>
+
 

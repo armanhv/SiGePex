@@ -6,11 +6,14 @@ $idCliente = $_POST['idCliente'];
 $fechaMorosidad = $_POST['fechaMorosidad'];
 $monto = $_POST['monto'];
 
+$monto = str_replace(".", "", $monto);
+$monto = str_replace(",", ".", $monto);
+$monto = str_replace("₡", "", $monto);
+
 $morosidadBusiness = new morosidadBusiness();
 
 $morosidad = new morosidad(0, $idCliente,$fechaMorosidad, $monto );
 
-//echo $idCliente . ' - ' . $fechaMorosidad . ' - ' . $monto ;
 
 //se inserta
 $resultado = $morosidadBusiness->insertarMorosidad($morosidad);

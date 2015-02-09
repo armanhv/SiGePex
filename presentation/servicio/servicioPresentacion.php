@@ -48,9 +48,13 @@
                         <td><label for="formaPago">Forma de Pago:</label></td>
                         <td><span id="tipoPagos"></span></td>
                     </tr>
-                    <tr id="123" style="display:none">
+                    <tr id="trBoucher" style="display:none">
                         <td><label for="numBoucher">Numero de Boucher:</label></td>
                         <td><input type="text" value="" name="txtNumBoucher" id="txtNumBoucher"><br></td>
+                    </tr>
+                    <tr id="trFechaPago" style="display:none">
+                       <td><label for="fechaPago">Fecha Pago:</label></td>
+                        <td><input type="text" value="" name="txtFechaPago" id="txtFechaPago"><br></td>
                     </tr>
                     <tr>
                         <td><label for="cargosExtra">Cargos Extra:</label></td>
@@ -90,6 +94,7 @@
 <script type="text/JavaScript">
 
     $("#txtFechaServicio").datepicker();
+    $("#txtFechaPago").datepicker();
     datePickerLatino();
 
 </script>

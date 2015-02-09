@@ -4,29 +4,46 @@ include '../../business/servicioBusiness.php';
 include '../../business/empleadoBusiness.php';
 include '../../business/clienteBusiness.php';
 include '../../business/tipoServicioBusiness.php';
+include '../../business/ingresosBusiness.php';
+include '../../business/cuentasPorCobrarBusiness.php';
 
 //los valores almacenados que se enviarion por el cliente
 $idServicio = $_POST['idServicio'];
+$idTipoPagoServicio;
 
 //comunucacion con Business
 $servicioBusiness = new servicioBusines();
 $empleadoBusiness = new EmpleadoBusiness();
 $clienteBusiness = new clienteBusiness();
 $tipoServicioBusines = new tipoServicioBusines();
+$ingresosBusiness = new ingresosBusiness();
+$cuentasPorCobrarBusiness = new cuentasPorCobrarBusiness();
 
-
+//uso de instancias
+$listaTipoPago = $ingresosBusiness->obtenerTipoPago();
 $servicio = $servicioBusiness->buscarServicio($idServicio);
 $listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 $listaCliente = $clienteBusiness->obtenerCliente();
 $listaTipoServicios = $tipoServicioBusines->obtenerTipoServicios();
 
-//se pasa la fecha a otro formato
-if ($servicio->fechaServicio != "") {
+$ingreso = $ingresosBusiness->buscarBoucherIngreso($servicio->idCliente, $servicio->idEmpleado, $servicio->fechaServicio);
+$cuentaPorCobrar = $cuentasPorCobrarBusiness->obtenerFechaPagoCuentaPorCobrar($servicio->idEmpleado, $servicio->idCliente);
+
+//se pasa las fechas a otro formato
+if ($servicio->fechaServicio == "") {
+    $fechaServicio = "";
+} else {
     $fechaServicio = split("-", $servicio->fechaServicio);
     $fechaServicio = $fechaServicio[2] . "/" . $fechaServicio[1] . "/" . $fechaServicio[0];
-} else {
-    $fechaServicio = "";
 }
+
+if ($cuentaPorCobrar->fechaPago == "") {
+    $fechaPago = "";
+} else {
+    $fechaPago = split("-", $cuentaPorCobrar->fechaPago);
+    $fechaPago = $fechaPago[2] . "/" . $fechaPago[1] . "/" . $fechaPago[0];
+}
+
 echo '
     <table>
         <tr>
@@ -101,14 +118,52 @@ echo '</td>
         </tr>
         <tr>
             <td><label for="formaPago">Forma de Pago:</label></td>
-            <td><select name="cbxFormaPago" id="cbxFormaPago" >
-                    <option value="Tarjeta">Tarjeta</option>
-                    <option value="Efectivo" selected>Efectivo</option>
-                    <option value="Crédito">Crédito</option>
-                </select>
-            </td>
+            <td>';
+
+echo '<SELECT onChange="cambiarDisplay()" name="cbxTipoPago" id="cbxTipoPago" size=1>';
+echo '<option value="0">Elija un Tipo de Pago</option>';
+
+foreach ($listaTipoPago as $currentTipoPago) {
+
+    $idTipo = $currentTipoPago->idTipoPago;
+    $nombreTipo = $currentTipoPago->nombreTipo;
+
+    if ($servicio->formaDePago == $currentTipoPago->idTipoPago) {
+        $idTipoPagoServicio = $servicio->formaDePago;
+        echo '<option value="' . $idTipo . '" selected>' . $nombreTipo . '</option>';
+    } else {
+        echo '<option value="' . $idTipo . '">' . $nombreTipo . '</option>';
+    }
+}
+echo '</SELECT>';
+
+echo '</td>
         </tr>
-        <tr>
+        <tr id="trBoucher" ';
+
+if ($idTipoPagoServicio == "2") {
+    echo 'style="display:">';
+} else {
+    echo 'style="display:none">';
+}
+echo '            
+            <td><label for="numBoucher">Numero de Boucher:</label></td>
+            <td><input type="text" value="' . $ingreso->numBoucher . '" name="txtNumBoucher" id="txtNumBoucher"><br></td>
+        </tr>';
+
+echo '<tr id="trFechaPago" ';
+if ($idTipoPagoServicio == "1") {
+    echo 'style="display:">';
+} else {
+    echo 'style="display:none">';
+}
+echo '
+            <td><label for="fechaPago">Fecha Pago:</label></td>
+            <td><input type="text" value="' . $fechaPago . '" name="txtFechaPago" id="txtFechaPago"><br></td>
+    </tr>';
+
+
+echo '<tr>
             <td><label for="cargosExtra">Cargos Extra:</label></td>
             <td><input type="text" id="txtCargosExtra" name="txtCargosExtra" value="' . $servicio->cargosExtra . '"class="currency" onchange="mostrarTotal();"></td>
         </tr>
@@ -126,10 +181,11 @@ echo '</td>
             <td><input type="button" value="Borrar" onclick="borrarServicio()"></td>
         </tr>
     </table>
-
+    
      <!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
     <script type="text/JavaScript">
         $("#txtFechaServicio").datepicker();
+        $("#txtFechaPago").datepicker();
         datePickerLatino();
     </script>
     
@@ -140,3 +196,4 @@ echo '</td>
             });
         });
     </script>';
+

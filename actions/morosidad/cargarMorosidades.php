@@ -20,7 +20,7 @@ echo '
             <td><label for="cliente">Cliente:</label></td>
             <td>';
 
-echo '<SELECT  name="cbxCliente" id="cbxCliente" size=1>';
+echo '<SELECT onClick="obtenerMorosidadesCliente()" name="cbxCliente" id="cbxCliente" size=1>';
 echo '<option value="0">Elija un Cliente</option>';
 
 foreach ($listaCliente as $currentCliente) {

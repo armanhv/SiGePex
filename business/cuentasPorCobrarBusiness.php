@@ -1,6 +1,6 @@
 <?php
 
-include_once  "../../data/cuentasPorCobrarData.php";
+include_once "../../data/cuentasPorCobrarData.php";
 
 class cuentasPorCobrarBusiness {
 
@@ -29,37 +29,40 @@ class cuentasPorCobrarBusiness {
         $resultado = $this->cuentasPorCobrarData->borrarCuentaPorCobrar($idCuentasPorCobrar);
         return $resultado;
     }
-    
- 
-     public function buscarCuentasPorCobrar($idCuentasPorCobrar) {
+
+    public function buscarCuentasPorCobrar($idCuentasPorCobrar) {
         $resultado = $this->cuentasPorCobrarData->buscarCuentasPorCobrar($idCuentasPorCobrar);
         return $resultado;
     }
-    
+
     //metodo que se utiliza para obtener todas las cuentas por cobrar
     public function obtenerCuentasPorCobrar($idCliente) {
         $resultado = $this->cuentasPorCobrarData->obtenerCuentasPorCobrar($idCliente);
         return $resultado;
     }
-    
+
     public function verificarCuentasPorCobrarFechaPago() {
         $this->cuentasPorCobrarData->verificarCuentasPorCobrarFechaPago();
     }
 
-     public function obtenerClientesMorosos() {
+    public function obtenerClientesMorosos() {
         $resultado = $this->cuentasPorCobrarData->obtenerClientesMorosos();
         return $resultado;
     }
-    
+
     public function buscarClientesMorosos($idCliente) {
         $cliente = $this->cuentasPorCobrarData->buscarClientesMorosos($idCliente);
         return $cliente;
     }
-    
+
     public function buscarEmpleadosCuentaCobrar($idCliente) {
         $cliente = $this->cuentasPorCobrarData->buscarEmpleadosCuentaCobrar($idCliente);
         return $cliente;
     }
-    
-    
+
+    public function obtenerFechaPagoCuentaPorCobrar($idEmpleado, $idCliente) {
+        $cliente = $this->cuentasPorCobrarData->obtenerFechaPagoCuentaPorCobrar($idEmpleado, $idCliente);
+        return $cliente;
+    }
+
 }
