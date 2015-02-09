@@ -4,14 +4,17 @@ include_once '../../domain/cuentasPorCobrar.php';
 include_once '../../data/baseDatos.php';
 include_once '../../domain/empleado.php';
 include_once '../../domain/cliente.php';
+include_once '../../business/morosidadBusiness.php';
 
 class cuentasPorCobrarData {
 
     public $objConexionBaseDatos;
+    private $objMorosidadBusiness;
 
     //constructor
     public function cuentasPorCobrarData() {
         $this->objConexionBaseDatos = new baseDatos();
+        $this->objMorosidadBusiness = new morosidadBusiness();
     }
 
     public function obtenerIdCuentaCobrar() {
@@ -77,7 +80,7 @@ class cuentasPorCobrarData {
     }
 
     public function obtenerCuentasPorCobrar($idCliente) {
-        $query = "select * from tbcuentasporcobrar where idCliente=".$idCliente;
+        $query = "select * from tbcuentasporcobrar where idCliente=" . $idCliente;
         $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
         $arrayCuentaPorCobrar = [];
 
@@ -89,6 +92,17 @@ class cuentasPorCobrarData {
         $this->objConexionBaseDatos->cerrarConexion();
 
         return $arrayCuentaPorCobrar;
+    }
+
+    public function verificarCuentasPorCobrarFechaPago() {
+        $fechaActual = date("Y/m/d");
+        $query = "select * from tbcuentasporcobrar where fechaPago < '" . $fechaActual . "'";
+        $resultado = mysqli_query($this->objConexionBaseDatos->abrirConexion(), $query);
+        while ($row = mysqli_fetch_array($resultado)) {
+            $currentCuentaPorCobrarMorosa = new morosidad(0, $row['idCliente'], $row['fechaPago'], $row['monto']);
+            $this->objMorosidadBusiness->insertarMorosidad($currentCuentaPorCobrarMorosa);
+            $this->borrarCuentaPorCobrar($row['idCuentasPorCobrar']);
+        }
     }
 
 //METODOS PARA CARGAR COMBO CON OTRO
@@ -131,4 +145,5 @@ class cuentasPorCobrarData {
         $this->objConexionBaseDatos->cerrarConexion();
         return $empleado;
     }
+
 }

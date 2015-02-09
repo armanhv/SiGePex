@@ -4,20 +4,25 @@
         <title>SiGePex</title>     
         <script type="text/javascript" src="../../js/ajaxServicio.js"></script>    
         <script type="text/javascript" src="../../js/ajaxCliente.js"></script>    
-        <script type="text/javascript" src="../../js/ajaxSalario.js"></script>    
+        <script type="text/javascript" src="../../js/ajaxSalario.js"></script>   
+        <script type="text/javascript" src="../../js/ajaxIngresos.js"></script>
         <script type="text/javascript" src="../../js/ajaxTipoServicio.js"></script>    
         <script type="text/javascript" src="../../js/jquery.js"></script>   
 
         <script type="text/javascript" src="../../js/validacion/jquery-ui.js"></script>
         <script type="text/javascript" src="../../js/validacion/utilidades.js"></script>
         <link rel="stylesheet" href="../../js/validacion/jquery-ui.css">
+        <script type="text/javascript" src="../../js/validacion/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="../../js/validacion/jquery.formatCurrency.js"></script>
 
     </head>
 
     <body style="" onload="obtenerClientes();
             obtenerEmpleados();
             obtenerTipoServicios();
-            obtenerServicios();">
+            obtenerServicios();
+            obtenerTipoPago();
+            moneda();">
 
         <div style="margin-left: 500px">
             <p>Módulo de Servicios</p>
@@ -41,16 +46,23 @@
                     </tr>
                     <tr>
                         <td><label for="formaPago">Forma de Pago:</label></td>
-                        <td><select name="cbxFormaPago" id="cbxFormaPago" >
-                                <option value="Tarjeta">Tarjeta</option>
-                                <option value="Efectivo" selected>Efectivo</option>
-                                <option value="Crédito">Crédito</option>
-                            </select>
-                        </td>
+                        <td><span id="tipoPagos"></span></td>
+                    </tr>
+                    <tr id="123" style="display:none">
+                        <td><label for="numBoucher">Numero de Boucher:</label></td>
+                        <td><input type="text" value="" name="txtNumBoucher" id="txtNumBoucher"><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="cargosExtra">Cargos Extra:</label></td>
+                        <td><input type="text" id="txtCargosExtra" name="txtCargosExtra" class="currency" onchange="mostrarTotal();"></td>
                     </tr>
                     <tr>
                         <td><label for="descripcionServicio">Descripción del Servicio:</label></td>
                         <td><textarea rows="4" cols="22" value="" id="txtDescripcionServicio"></textarea></td>
+                    </tr>             
+                    <tr>
+                        <td><label for="montoTotal">Total a Pagar:</label></td>
+                        <td><span id="montoTotal">₡ 0 </span></td>
                     </tr>
                     <tr>
                         <td><input type="button" value="Insertar" onclick="insertarServicio()"></td>
@@ -59,6 +71,9 @@
                     </tr>
                 </table>
             </div>
+            <br>
+
+
             <br>
             <span id="resultado"></span>
 

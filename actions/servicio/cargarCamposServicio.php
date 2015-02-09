@@ -76,7 +76,7 @@ echo '</td>
             <td><label for="tipoServicio">Elija un Tipo de Servicio:</label></td>
             <td>';
 
-echo '<SELECT name="cbxTipoServicios" id="cbxTipoServicios" size=1>';
+echo '<SELECT name="cbxTipoServicios" onchange="mostrarTotal();" id="cbxTipoServicios" size=1>';
 echo '<option value="0">Elija un Tipo de Servicio</option>';
 
 
@@ -109,8 +109,16 @@ echo '</td>
             </td>
         </tr>
         <tr>
+            <td><label for="cargosExtra">Cargos Extra:</label></td>
+            <td><input type="text" id="txtCargosExtra" name="txtCargosExtra" value="' . $servicio->cargosExtra . '"class="currency" onchange="mostrarTotal();"></td>
+        </tr>
+        <tr>
             <td><label for="descripcionServicio">Descripción del Servicio:</label></td>
             <td><textarea rows="4" cols="22" value="" id="txtDescripcionServicio">' . $servicio->descripcionServicio . '</textarea></td>
+        </tr>
+        <tr>
+            <td><label for="montoTotal">Total a Pagar:</label></td>
+            <td><span id="montoTotal">₡ ' . $servicio->total . '</span></td>
         </tr>
         <tr>
             <td><input type="button" value="Insertar" onclick="insertarServicio()"></td>
@@ -123,4 +131,12 @@ echo '</td>
     <script type="text/JavaScript">
         $("#txtFechaServicio").datepicker();
         datePickerLatino();
+    </script>
+    
+    <script>
+        $(document).ready(function () {
+            $(".currency").blur(function () {
+                $(".currency").formatCurrency();
+            });
+        });
     </script>';

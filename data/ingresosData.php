@@ -122,6 +122,7 @@ class ingresosData {
         $this->conexion->cerrarConexion();
         return $cliente;
     }
+    
     public function buscarTipoPago($idTipoPago) {
         $query = "SELECT * FROM tbtipopago WHERE(idTipoPago =" . $idTipoPago . ")";
         $resulGeneral = mysqli_query($this->conexion->abrirConexion(), $query);

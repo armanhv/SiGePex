@@ -6,7 +6,7 @@ include '../../business/ingresosBusiness.php';
 $ingresosBusiness=new ingresosBusiness();
 $listaTipoPago=$ingresosBusiness->obtenerTipoPago();
 
-echo '<SELECT name="cbxTipoPago" id="cbxTipoPago" size=1>';
+echo '<SELECT onChange="cambiarDisplay(123)" name="cbxTipoPago" id="cbxTipoPago" size=1>';
 echo '<option value="0">Elija un Tipo de Pago</option>';
 
 foreach($listaTipoPago as $currentTipo){
@@ -17,7 +17,5 @@ foreach($listaTipoPago as $currentTipo){
     echo '<option value=' . $idTipoPago . '>' . $nombreTipo . '</option>';
 }
 	echo '/SELECT>';
-?>
-
 
 

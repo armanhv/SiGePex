@@ -6,7 +6,7 @@ include '../../business/tipoServicioBusiness.php';
 $tipoServicioBusines = new tipoServicioBusines();
 $listaTipoServicios = $tipoServicioBusines->obtenerTipoServicios();
 
-echo '<SELECT onChange="cargarTipoServicios();" name="cbxTipoServicios" id="cbxTipoServicios" size=1>';
+echo '<SELECT onChange="cargarTipoServicios();mostrarTotal()" name="cbxTipoServicios" id="cbxTipoServicios" size=1>';
 echo '<option value="0">Eliga un Tipo de Servicio</option>';
 
 foreach ($listaTipoServicios as $currentTipoServicio) {

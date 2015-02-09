@@ -18,7 +18,7 @@ class servicioData {
 
         $query = "insert into tbservicio values (" . $this->utilidad->generarIdAutoIncremental('idServicio', 'tbservicio') . ", " . $servicio->idCliente . ", "
                 . $servicio->idEmpleado . ", " . $servicio->idTipoServicio . ", '" . $servicio->descripcionServicio . "', '"
-                . $servicio->fechaServicio . "', '" . $servicio->formaDePago . "');";
+                . $servicio->fechaServicio . "', '" . $servicio->formaDePago . "'," . $servicio->cargosExtra . "," . $servicio->total . ");";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
 
@@ -36,7 +36,7 @@ class servicioData {
         $query = "update tbservicio set idCliente=" . $servicio->idCliente . ", idEmpleado=" . $servicio->idEmpleado
                 . ", idTipoServicio=" . $servicio->idTipoServicio . ", descripcionServicio='" . $servicio->descripcionServicio
                 . "', fechaServicio='" . $servicio->fechaServicio . "', formaDePago='" . $servicio->formaDePago
-                . "' where (idServicio=" . $servicio->idServicio . ");";
+                . "', cargosExtra=" . $servicio->cargosExtra . ", total=" . $servicio->total . " where (idServicio=" . $servicio->idServicio . ");";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
 
@@ -70,7 +70,7 @@ class servicioData {
         $arrayServicios = [];
 
         while ($row = mysqli_fetch_array($result)) {
-            $servicioActual = new servicio($row['idServicio'], $row['idCliente'], $row['idEmpleado'], $row['idTipoServicio'], $row['descripcionServicio'], $row['fechaServicio'], $row['formaDePago']);
+            $servicioActual = new servicio($row['idServicio'], $row['idCliente'], $row['idEmpleado'], $row['idTipoServicio'], $row['descripcionServicio'], $row['fechaServicio'], $row['formaDePago'], $row['cargosExtra'], $row['total']);
             array_push($arrayServicios, $servicioActual);
         }
 
@@ -85,10 +85,10 @@ class servicioData {
 
         $row = $resulGeneral->fetch_array();
 
-        $servicio = new servicio($row['idServicio'], $row['idCliente'], $row['idEmpleado'], $row['idTipoServicio'], $row['descripcionServicio'], $row['fechaServicio'], $row['formaDePago']);
+        $servicio = new servicio($row['idServicio'], $row['idCliente'], $row['idEmpleado'], $row['idTipoServicio'], $row['descripcionServicio'], $row['fechaServicio'], $row['formaDePago'], $row['cargosExtra'], $row['total']);
 
         $this->conexion->cerrarConexion();
-        
+
         return $servicio;
     }
 

@@ -8,8 +8,12 @@ function insertarServicio() {
         var idCliente = $('#cbxCliente').val();
         var idEmpleado = $('#cbxEmpleadoSalario').val();
         var idTipoServicio = $('#cbxTipoServicios').val();
-        var formaPago = $('#cbxFormaPago').val();
+        var formaPago = $('#cbxTipoPago').val();
         var descripcion = $('#txtDescripcionServicio').val();
+        var cargosExtra = $('#txtCargosExtra').val();
+        var total = $('#montoTotal').text();
+        cargosExtra = cargosExtra.replace(/₡/g, "");
+        total = total.replace(/₡/g, "");
 
         var parametros = {
             "idCliente": idCliente,
@@ -17,7 +21,9 @@ function insertarServicio() {
             "idTipoServicio": idTipoServicio,
             "fechaServicio": obtenerFechaFormatoSQL(fecha),
             "formaPago": formaPago,
-            "descripcion": descripcion
+            "descripcion": descripcion,
+            "cargosExtra": cargosExtra,
+            "total": total
         };
 
         if (confirm("¿ Desea agregar este servicio ?")) {
@@ -30,8 +36,11 @@ function insertarServicio() {
                     $('#cbxCliente').val("0");
                     $('#cbxEmpleadoSalario').val("0");
                     $('#cbxTipoServicios').val("0");
-                    $('#cbxFormaPago').val("Efectivo");
+                    $('#cbxTipoPago').val("0");
                     $('#txtDescripcionServicio').val("");
+                    $('#txtCargosExtra').val("");
+                    $('#txtFechaServicio').val("");
+                    $('#montoTotal').text("₡ 0");
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -49,10 +58,13 @@ function actualizarServicio() {
         var idCliente = $('#cbxCliente').val();
         var idEmpleado = $('#cbxEmpleadoSalario').val();
         var idTipoServicio = $('#cbxTipoServicios').val();
-        var formaPago = $('#cbxFormaPago').val();
+        var formaPago = $('#cbxTipoPago').val();
         var descripcion = $('#txtDescripcionServicio').val();
         var idServicio = document.getElementById("cbxServicios").value;
-
+        var cargosExtra = $('#txtCargosExtra').val();
+        var total = $('#montoTotal').text();
+        cargosExtra = cargosExtra.replace(/₡/g, "");
+        total = total.replace(/₡/g, "");
 
         var parametros = {
             "idServicio": idServicio,
@@ -61,7 +73,9 @@ function actualizarServicio() {
             "idTipoServicio": idTipoServicio,
             "fechaServicio": obtenerFechaFormatoSQL(fecha),
             "formaPago": formaPago,
-            "descripcion": descripcion
+            "descripcion": descripcion,
+            "cargosExtra": cargosExtra,
+            "total": total
         };
 
         if (confirm("¿ Desea modificar este servicio ?")) {
@@ -74,8 +88,11 @@ function actualizarServicio() {
                     $('#cbxCliente').val("0");
                     $('#cbxEmpleadoSalario').val("0");
                     $('#cbxTipoServicios').val("0");
-                    $('#cbxFormaPago').val("Efectivo");
+                    $('#cbxTipoPago').val("0");
                     $('#txtDescripcionServicio').val("");
+                    $('#txtCargosExtra').val("");
+                    $('#txtFechaServicio').val("");
+                    $('#montoTotal').text("₡ 0");
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -100,8 +117,11 @@ function borrarServicio() {
                 $('#cbxCliente').val("0");
                 $('#cbxEmpleadoSalario').val("0");
                 $('#cbxTipoServicios').val("0");
-                $('#cbxFormaPago').val("Efectivo");
+                $('#cbxTipoPago').val("0");
                 $('#txtDescripcionServicio').val("");
+                $('#txtCargosExtra').val("");
+                $('#txtFechaServicio').val("");
+                $('#montoTotal').text("₡ 0");
                 obtenerServicios();
                 $("#resultado").html(response);
             }});
@@ -137,16 +157,40 @@ function cargarServicios() {
     });
 }
 
+function mostrarTotal() {
+
+    var idTipoServicio = $('#cbxTipoServicios').val();
+    var cargosExtra = $('#txtCargosExtra').val();
+
+    var parametros = {
+        "idTipoServicio": idTipoServicio,
+        "cargosExtra": cargosExtra
+    };
+
+    $.ajax({
+        data: parametros,
+        url: '../../actions/servicio/sumarTotal.php',
+        type: 'post',
+        success: function (response) {
+            $("#montoTotal").html(response);
+        }});
+}
 
 /********************* Seccion de validaciones ************************/
 function validarServicio() {
 
+    var expresionAlfaNumerica = /^[a-zA-Z0-9]+$/;
     var idCliente = $('#cbxCliente').val();
     var idEmpleado = $('#cbxEmpleadoSalario').val();
     var idTipoServicio = $('#cbxTipoServicios').val();
     var fechaServicio = $('#txtFechaServicio').val();
-    var formaPago = $('#cbxFormaPago').val();
+    var formaPago = $('#cbxTipoPago').val();
     var descripcion = $('#txtDescripcionServicio').val();
+    var cargosExtra = $('#txtCargosExtra').val();
+    var numBoucher = $('#txtNumBoucher').val();
+    cargosExtra = cargosExtra.replace(/₡/g, "");
+
+    var fila = document.getElementById("123");
 
     if (idCliente === '0') {
         mandarMensaje("Elija un cliente para el servicio");
@@ -172,9 +216,23 @@ function validarServicio() {
         return false;
     }
 
-    if (formaPago === '') {
+    if (formaPago === '0') {
         mandarMensaje("Debe elegir una forma de pago");
-        cbxFormaPago.focus();
+        cbxTipoPago.focus();
+        return false;
+    }
+
+    if (formaPago === '2') {
+        if (!(numBoucher.match(expresionAlfaNumerica)) || ($.trim(numBoucher) === '')) {
+            mandarMensaje("El número de boucher es inválido");
+            txtNumBoucher.focus();
+            return false;
+        }
+    }
+
+    if (!(validarNumero(cargosExtra)) || ($.trim(cargosExtra) === "")) {
+        mandarMensaje("El precio del servicio es inválido");
+        txtCargosExtra.focus();
         return false;
     }
 
@@ -185,4 +243,16 @@ function validarServicio() {
     }
 
     return true;
+}
+
+function cambiarDisplay(id) {
+
+    var formaPago = $('#cbxTipoPago').val();
+    var fila = document.getElementById(id);
+
+    if (formaPago === '2') {
+        fila.style.display = ""; //mostrar fila 
+    } else {
+        fila.style.display = "none"; //ocultar fila 
+    }
 }

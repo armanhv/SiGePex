@@ -166,6 +166,17 @@ function limpiarCamposCuentas() {
     $("#txtFechaPago").val("");
     $("#txtMonto").val("");
 }
+function verificarCuentasPorCobrarFechaPago(){
+      $.ajax({
+        data: '',
+        url: 'actions/cuentasporcobrar/verificarCuentasPorCobrarMorosidad.php',
+        type: 'post',
+        success: function (response) {
+            $("#empleados").html(response);
+        }
+    });
+    
+}
 
 /********************* Seccion de validaciones ************************/
 function validarCuentasPorCobrar() {
