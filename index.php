@@ -2,11 +2,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inicio de SiGePex</title>
-         <script type="text/javascript" src="js/ajaxCuentasPorCobrar.js"></script> 
-        <script type="text/javascript" src="js/jquery-2-1-3.js"></script> 
+        <title></title>
     </head>
-    <body style="" onload="verificarCuentasPorCobrarFechaPago()">
+    <body>
         <a href="presentation/rol/rolPresentacion.php">Rol</a>
         <br >
         <a href="presentation/horario/horarioPresentacion.php">Horario</a>
@@ -33,7 +31,7 @@
         <br>
         <a href="presentation/tipoServicio/tipoServicioPresentacion.php">Tipo de Servicio</a>
         <br>
-        <a href="presentation/servicio/servicioPresentacion.php">Nuevo Servicio</a>
+        <a href="presentation/servicio/servicioPresentacion.php">Servicio</a>
         <br>
     </body>
 </html>

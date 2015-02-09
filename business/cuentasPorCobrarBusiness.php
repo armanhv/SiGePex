@@ -40,10 +40,6 @@ class cuentasPorCobrarBusiness {
         $resultado = $this->cuentasPorCobrarData->obtenerCuentasPorCobrar($idCliente);
         return $resultado;
     }
-    
-    public function verificarCuentasPorCobrarFechaPago() {
-        $this->cuentasPorCobrarData->verificarCuentasPorCobrarFechaPago();
-    }
 
     public function verificarCuentasPorCobrarFechaPago() {
         $this->cuentasPorCobrarData->verificarCuentasPorCobrarFechaPago();
@@ -69,6 +65,4 @@ class cuentasPorCobrarBusiness {
         return $cliente;
     }
 
-    
-    
 }
