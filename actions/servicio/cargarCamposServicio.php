@@ -11,7 +11,7 @@ include '../../business/servicioIngresoBusiness.php';
 
 //los valores almacenados que se enviarion por el cliente
 $idServicio = $_POST['idServicio'];
-$idTipoPagoServicio;
+$idTipoPagoServicio = "0";
 
 //comunucacion con Business
 $servicioBusiness = new servicioBusines();
@@ -35,6 +35,7 @@ $ingresoServicio = $servicioIngresosBusiness->buscarServicioIngresos($idServicio
 $cuentasPorCobrarServicio = $servicioCuentasPorCobrarBusiness->buscarServicioCuentasPorCobrar($idServicio);
 
 if ($ingresoServicio->idIngreso > 0) {
+
     $ingreso = $ingresosBusiness->buscarIngresos($ingresoServicio->idIngreso);
 } else if ($cuentasPorCobrarServicio->idCuentasPorCobrarServicio > 0) {
     $cuentaPorCobrar = $cuentasPorCobrarBusiness->buscarCuentasPorCobrar($cuentasPorCobrarServicio->idCuentasPorCobrarServicio);
@@ -56,7 +57,7 @@ if (isset($cuentaPorCobrar)) {
         $fechaPago = $fechaPago[2] . "/" . $fechaPago[1] . "/" . $fechaPago[0];
     }
 } else {
-    $fechaPago = "";//para evitar errores
+    $fechaPago = ""; //para evitar errores
 }
 
 echo '
