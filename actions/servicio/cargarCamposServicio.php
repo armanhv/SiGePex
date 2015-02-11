@@ -6,6 +6,8 @@ include '../../business/clienteBusiness.php';
 include '../../business/tipoServicioBusiness.php';
 include '../../business/ingresosBusiness.php';
 include '../../business/cuentasPorCobrarBusiness.php';
+include '../../business/servicioCuentasPorCobrarBusiness.php';
+include '../../business/servicioIngresoBusiness.php';
 
 //los valores almacenados que se enviarion por el cliente
 $idServicio = $_POST['idServicio'];
@@ -18,6 +20,8 @@ $clienteBusiness = new clienteBusiness();
 $tipoServicioBusines = new tipoServicioBusines();
 $ingresosBusiness = new ingresosBusiness();
 $cuentasPorCobrarBusiness = new cuentasPorCobrarBusiness();
+$servicioCuentasPorCobrarBusiness = new servicioCuentasPorCobrarBusiness();
+$servicioIngresosBusiness = new servicioIngresoBusiness();
 
 //uso de instancias
 $listaTipoPago = $ingresosBusiness->obtenerTipoPago();
@@ -26,8 +30,15 @@ $listaEmpleados = $empleadoBusiness->obtenerEmpleados();
 $listaCliente = $clienteBusiness->obtenerCliente();
 $listaTipoServicios = $tipoServicioBusines->obtenerTipoServicios();
 
-$ingreso = $ingresosBusiness->buscarBoucherIngreso($servicio->idCliente, $servicio->idEmpleado, $servicio->fechaServicio);
-$cuentaPorCobrar = $cuentasPorCobrarBusiness->obtenerFechaPagoCuentaPorCobrar($servicio->idEmpleado, $servicio->idCliente);
+// Se Realizan las busquedas
+$ingresoServicio = $servicioIngresosBusiness->buscarServicioIngresos($idServicio);
+$cuentasPorCobrarServicio = $servicioCuentasPorCobrarBusiness->buscarServicioCuentasPorCobrar($idServicio);
+
+if ($ingresoServicio->idIngreso > 0) {
+    $ingreso = $ingresosBusiness->buscarIngresos($ingresoServicio->idIngreso);
+} else if ($cuentasPorCobrarServicio->idCuentasPorCobrarServicio > 0) {
+    $cuentaPorCobrar = $cuentasPorCobrarBusiness->buscarCuentasPorCobrar($cuentasPorCobrarServicio->idCuentasPorCobrarServicio);
+}
 
 //se pasa las fechas a otro formato
 if ($servicio->fechaServicio == "") {
@@ -37,11 +48,15 @@ if ($servicio->fechaServicio == "") {
     $fechaServicio = $fechaServicio[2] . "/" . $fechaServicio[1] . "/" . $fechaServicio[0];
 }
 
-if ($cuentaPorCobrar->fechaPago == "") {
-    $fechaPago = "";
+if (isset($cuentaPorCobrar)) {
+    if ($cuentaPorCobrar->fechaPago == "") {
+        $fechaPago = "";
+    } else {
+        $fechaPago = split("-", $cuentaPorCobrar->fechaPago);
+        $fechaPago = $fechaPago[2] . "/" . $fechaPago[1] . "/" . $fechaPago[0];
+    }
 } else {
-    $fechaPago = split("-", $cuentaPorCobrar->fechaPago);
-    $fechaPago = $fechaPago[2] . "/" . $fechaPago[1] . "/" . $fechaPago[0];
+    $fechaPago = "";//para evitar errores
 }
 
 echo '
@@ -146,9 +161,15 @@ if ($idTipoPagoServicio == "2") {
 } else {
     echo 'style="display:none">';
 }
+
+if (isset($ingreso)) {
+    $numBoucher = $ingreso->numBoucher;
+} else {
+    $numBoucher = "";
+}
 echo '            
             <td><label for="numBoucher">Numero de Boucher:</label></td>
-            <td><input type="text" value="' . $ingreso->numBoucher . '" name="txtNumBoucher" id="txtNumBoucher"><br></td>
+            <td><input type="text" value="' . $numBoucher . '" name="txtNumBoucher" id="txtNumBoucher"><br></td>
         </tr>';
 
 echo '<tr id="trFechaPago" ';

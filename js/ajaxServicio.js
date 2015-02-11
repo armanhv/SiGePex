@@ -31,6 +31,10 @@ function insertarServicio() {
             "fechaPago": obtenerFechaFormatoSQL(fechaPago)
         };
 
+//        alert(idCliente + " - " + idEmpleado + " - " + idTipoServicio + " - " + formaPago
+//                + " - " + descripcion + " - " + cargosExtra + " - " + total + " - " + numBoucher + " - " +
+//                fechaPago + " - " + fecha);
+
         if (confirm("¿ Desea agregar este servicio ?")) {
             $.ajax({
                 data: parametros,
@@ -46,8 +50,10 @@ function insertarServicio() {
                     $('#txtCargosExtra').val("");
                     $('#txtFechaServicio').val("");
                     $('#txtNumBoucher').val("");
-                    $('#txtFechaServicio').val("");
-                    $('#txtFechaPago').text("₡ 0");
+                    $('#txtFechaPago').val("");
+                    $('#montoTotal').text("₡ 0");
+                    document.getElementById("trBoucher").style.display = "none";
+                    document.getElementById("trFechaPago").style.display = "none";
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -75,7 +81,7 @@ function actualizarServicio() {
         cargosExtra = cargosExtra.replace(/₡/g, "");
         total = total.replace(/₡/g, "");
 
-        alert(numBoucher + " forma: " + formaPago);
+//        alert(numBoucher + " forma: " + formaPago);
 
         var parametros = {
             "idServicio": idServicio,
@@ -106,8 +112,10 @@ function actualizarServicio() {
                     $('#txtCargosExtra').val("");
                     $('#txtFechaServicio').val("");
                     $('#txtNumBoucher').val("");
-                    $('#txtFechaServicio').val("");
-                    $('#txtFechaPago').text("₡ 0");
+                    $('#txtFechaPago').val("");
+                    $('#montoTotal').text("₡ 0");
+                    document.getElementById("trBoucher").style.display = "none";
+                    document.getElementById("trFechaPago").style.display = "none";
                     obtenerServicios();
                     $("#resultado").html(response);
                 }
@@ -136,7 +144,11 @@ function borrarServicio() {
                 $('#txtDescripcionServicio').val("");
                 $('#txtCargosExtra').val("");
                 $('#txtFechaServicio').val("");
+                $('#txtNumBoucher').val("");
+                $('#txtFechaPago').val("");
                 $('#montoTotal').text("₡ 0");
+                document.getElementById("trBoucher").style.display = "none";
+                document.getElementById("trFechaPago").style.display = "none";
                 obtenerServicios();
                 $("#resultado").html(response);
             }});
