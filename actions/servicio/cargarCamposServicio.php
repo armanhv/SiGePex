@@ -49,17 +49,6 @@ if ($servicio->fechaServicio == "") {
     $fechaServicio = $fechaServicio[2] . "/" . $fechaServicio[1] . "/" . $fechaServicio[0];
 }
 
-if (isset($cuentaPorCobrar)) {
-    if ($cuentaPorCobrar->fechaPago == "") {
-        $fechaPago = "";
-    } else {
-        $fechaPago = split("-", $cuentaPorCobrar->fechaPago);
-        $fechaPago = $fechaPago[2] . "/" . $fechaPago[1] . "/" . $fechaPago[0];
-    }
-} else {
-    $fechaPago = ""; //para evitar errores
-}
-
 echo '
     <table>
         <tr>
@@ -171,23 +160,14 @@ if (isset($ingreso)) {
 echo '            
             <td><label for="numBoucher">Numero de Boucher:</label></td>
             <td><input type="text" value="' . $numBoucher . '" name="txtNumBoucher" id="txtNumBoucher"><br></td>
-        </tr>';
-
-echo '<tr id="trFechaPago" ';
-if ($idTipoPagoServicio == "1") {
-    echo 'style="display:">';
-} else {
-    echo 'style="display:none">';
-}
-echo '
-            <td><label for="fechaPago">Fecha Pago:</label></td>
-            <td><input type="text" value="' . $fechaPago . '" name="txtFechaPago" id="txtFechaPago"><br></td>
-    </tr>';
-
-
-echo '<tr>
+        </tr>
+        <tr>
             <td><label for="cargosExtra">Cargos Extra:</label></td>
             <td><input type="text" id="txtCargosExtra" name="txtCargosExtra" value="' . $servicio->cargosExtra . '"class="currency" onchange="mostrarTotal();"></td>
+        </tr>
+        <tr>
+            <td><label for="descripcionCargoExtra">Descripción Por Cargos Extra:</label></td>
+            <td><textarea rows="4" cols="22" value="" id="txtDescripcionCargoExtra">' . $servicio->descripcionCargoExtra . '</textarea></td>
         </tr>
         <tr>
             <td><label for="descripcionServicio">Descripción del Servicio:</label></td>
@@ -207,7 +187,6 @@ echo '<tr>
      <!--Este script es para el txt de las fechas no se pueda pegar ni copiar-->
     <script type="text/JavaScript">
         $("#txtFechaServicio").datepicker();
-        $("#txtFechaPago").datepicker();
         datePickerLatino();
     </script>
     

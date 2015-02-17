@@ -24,7 +24,7 @@ $formaDePago = $_POST['formaPago'];
 $cargosExtra = $_POST['cargosExtra'];
 $total = $_POST['total'];
 $numBoucher = $_POST['numBoucher'];
-$fechaPago = $_POST['fechaPago'];
+$descripcionCargoExtra = $_POST['descripcionCargoExtra'];
 
 $cargosExtra = str_replace(".", "", $cargosExtra);
 $cargosExtra = str_replace(",", ".", $cargosExtra);
@@ -33,9 +33,7 @@ $cargosExtra = str_replace("₡", "", $cargosExtra);
 //para limpiar valores
 if ($formaDePago != "2") {
     $numBoucher = "";
-} else if ($formaDePago != "1") {
-    $fechaPago = "";
-}
+} 
 
 //comunicacion con business
 $servicioBusiness = new servicioBusines();
@@ -68,9 +66,9 @@ if (isset($ingreso)) {
 
 
 //objetos a actualizar
-$newServicio = new servicio($idServicio, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago, $cargosExtra, $total);
+$newServicio = new servicio($idServicio, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago, $cargosExtra, $total, 0, $descripcionCargoExtra);
 $newIngreso = new ingresos($idIngresos, $idEmpleado, $idCliente, $formaDePago, $numBoucher, $total, $fechaServicio);
-$newCuentaPorCobrar = new cuentasPorCobrar($idCuentasPorCobrar, $idEmpleado, $idCliente, $fechaPago, $total);
+$newCuentaPorCobrar = new cuentasPorCobrar($idCuentasPorCobrar, $idEmpleado, $idCliente, $total);
 
 /* +++++ AQUI VA LO Q ESTA EN LA PIZARRA +++++ */
 
@@ -87,7 +85,7 @@ if ($formaDePago == "1") {//credito
 
         //se elimina la cuenta por cobrar, se inserta el ingreso
         $resultado1 = $ingresosBusiness->eliminarIngresos($idIngresos);
-        $resultado2 = $cuentasPorCobrarBusiness->insertarCuentaPorCobrar(new cuentasPorCobrar(0, $idEmpleado, $idCliente, $fechaPago, $total));
+        $resultado2 = $cuentasPorCobrarBusiness->insertarCuentaPorCobrar(new cuentasPorCobrar(0, $idEmpleado, $idCliente, $total));
 
         //se actualizan los datos
         $resultado3 = $servicioBusiness->actualizarServicio($newServicio);

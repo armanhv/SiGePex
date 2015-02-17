@@ -7,13 +7,12 @@ $idCliente = $_POST['idCliente'];
 $nombreCliente = $_POST['nombreCliente'];
 $primerApellido = $_POST['primerApellido'];
 $segundoApellido = $_POST['segundoApellido'];
-$direccion = $_POST['direccion'];
 
 //comunucacion con Business
 $clienteBusiness = new clienteBusiness();
 
 //se crea una instancia de cliente
-$newCliente = new cliente($idCliente, $nombreCliente, $primerApellido, $segundoApellido, $direccion);
+$newCliente = new cliente($idCliente, $nombreCliente, $primerApellido, $segundoApellido);
 
 //se actualiza
 $result = $clienteBusiness->actualizarCliente($newCliente);

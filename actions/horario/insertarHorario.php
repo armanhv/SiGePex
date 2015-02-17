@@ -1,7 +1,7 @@
 <?php
 
 include '../../business/horarioBusiness.php';
-include '../../domain/difHoras.php';
+include '../../utilidades/difHoras.php';
 
 $diferenciaHoras = new difHoras();
 
@@ -12,17 +12,23 @@ $horaInicio = $_POST['horaInicio'];
 $horaSalida = $_POST['horaSalida'];
 $totalHoras = $diferenciaHoras->format($diferenciaHoras->resta($horaInicio, $horaSalida));
 
+$arrayDias = split("\,", $dias);
+
 //comunucacion con Business
 $horarioBusiness = new horarioBusiness();
 
-//se crea una instancia de horario
-$newHorario = new horario(0, $idEmpleado, $dias, $horaInicio, $horaSalida, $totalHoras);
+foreach ($arrayDias as $dia) {
+    //se crea una instancia de horario
+    $newHorario = new horario(0, $idEmpleado, $dia, $horaInicio, $horaSalida, $totalHoras);
 
-//se inserta el horario
-$resultado = $horarioBusiness->insertHorario($newHorario);
+    //se inserta el horario
+    $resultado = $horarioBusiness->insertHorario($newHorario);
+}
 
-if ($resultado) {
-    echo 'Se inserto correctamente.';
-} else {
-    echo 'Error al insertar.';
+if ($resultado == 1) {
+    echo '¡ Se agregó correctamente el horario !';
+} else if ($resultado == 2) {
+    echo '¡ El empleado ya tiene este horario !';
+}  else {
+    echo '¡ Error al agregar el horario !';
 }

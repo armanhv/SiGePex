@@ -222,6 +222,7 @@ function verificarCampos() {
     var valorDireccionEmpleado = document.getElementById("txtDireccionEmpleado").value;
     var valorLogin = document.getElementById("txtLogin").value;
     var valorPass = document.getElementById("txtPassword").value;
+    var valorConfirmarPass = document.getElementById("txtConfirmarPassword").value;
     var valorCantidadHorasLaborales = document.getElementById("txtCantidadHorasLaborales").value;
     var valorCostoHoraExtra = document.getElementById("txtCostoHoraExtra").value;
     var valorTiempoAlmuerzo = document.getElementById("cbxTiempoAlmuerzo").value;
@@ -286,6 +287,11 @@ function verificarCampos() {
         return false;
     }
 
+    if (valorConfirmarPass !== valorPass) {
+        mandarMensaje("Las contraseñas no coinciden");
+        return false;
+    }
+
     if (!(valorCantidadHorasLaborales.match(expresionNumeros)) || ($.trim(valorCantidadHorasLaborales) === '')) {
         mandarMensaje("La cantidad de horas laborales son invalidas");
         txtCantidadHorasLaborales.focus();
@@ -306,3 +312,4 @@ function verificarCampos() {
 
     return true;
 }
+

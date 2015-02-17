@@ -11,12 +11,12 @@ $idCliente = $_POST['idCliente'];
 $idEmpleado = $_POST['idEmpleado'];
 $idTipoServicio = $_POST['idTipoServicio'];
 $descripcionServicio = $_POST['descripcion'];
+$descripcionCargoExtra = $_POST['descripcionCargoExtra'];
 $fechaServicio = $_POST['fechaServicio'];
 $formaDePago = $_POST['formaPago'];
 $cargosExtra = $_POST['cargosExtra'];
 $total = $_POST['total'];
 $numBoucher = $_POST['numBoucher'];
-$fechaPago = $_POST['fechaPago'];
 
 $cargosExtra = str_replace(".", "", $cargosExtra);
 $cargosExtra = str_replace(",", ".", $cargosExtra);
@@ -30,11 +30,12 @@ $servicioCuentasPorCobrarBusiness = new servicioCuentasPorCobrarBusiness();
 $servicioIngresosBusiness = new servicioIngresoBusiness();
 
 //Se crean los OBJETOS
-$newServicio = new servicio(0, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago, $cargosExtra, $total);
+$newServicio = new servicio(0, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago, $cargosExtra, $total, 0, $descripcionCargoExtra);
 $newIngreso = new ingresos(0, $idEmpleado, $idCliente, $formaDePago, $numBoucher, $total, $fechaServicio);
-$newCuentaPorCobrar = new cuentasPorCobrar(0, $idEmpleado, $idCliente, $fechaPago, $total);
+$newCuentaPorCobrar = new cuentasPorCobrar(0, $idEmpleado, $idCliente, $total);
 
 //preguntar cual forma de pago viene para saber en que tablas insertar
+// 1 Es de credito
 if ($formaDePago == "1") {
     $result1 = $servicioBusiness->insertarServicio($newServicio);
     $result2 = $cuentasPorCobrarBusiness->insertarCuentaPorCobrar($newCuentaPorCobrar);

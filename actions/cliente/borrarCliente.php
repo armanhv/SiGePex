@@ -1,7 +1,7 @@
 <?php
 
 include '../../business/clienteBusiness.php';
-$idCliente= $_POST['idCliente'];
+$idCliente = $_POST['idCliente'];
 
 
 //instancia de business
@@ -12,9 +12,7 @@ $clienteBusiness = new clienteBusiness();
 $result = $clienteBusiness->eliminarCliente($idCliente);
 
 if ($result) {
-    echo '<span class="correcto"> Parto Registrado con &Eacute;xito </span>';
+    echo 'El cliente se ingreso correctamente';
 } else {
-    echo '<span class="incorrecto"> Parto Registrado sin &Eacute;xito </span>';
+    echo 'Error al ingresar el cliente';
 }
-
-?>

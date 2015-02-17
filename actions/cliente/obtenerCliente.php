@@ -6,7 +6,7 @@ include '../../business/clienteBusiness.php';
 $clienteBusiness = new clienteBusiness();
 $listaCliente = $clienteBusiness->obtenerCliente();
 
-echo '<SELECT onChange="cargarCliente();obtenerTelefonosCliente()" NAME="cbxCliente" id="cbxCliente" SIZE=1>';
+echo '<SELECT onChange="cargarCliente();obtenerTelefonosCliente();obtenerCreditosCliente();obtenerAutorizados(); obtenerDirecciones();" NAME="cbxCliente" id="cbxCliente" SIZE=1>';
 echo '<option value=0>Elija un Cliente</option>';
 
 foreach ($listaCliente as $currentCliente) {

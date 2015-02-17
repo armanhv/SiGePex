@@ -7,35 +7,52 @@ include '../../utilidades/utilidadesGenerales.php';
 
 class horarioData {
 
-    //Variables 
+//Variables 
     private $conexion;
     private $utilidad;
 
-    //constructor
+//constructor
     public function horarioData() {
         $this->conexion = new baseDatos();
         $this->utilidad = new utilidadesGenerales($this->conexion);
     }
 
-    //Metodo para insertar un horario
+//Metodo para insertar un horario
     public function insertHorario($horario) {
+        $result = FALSE;
+        // se hace un count de los registros que tienen el mismo horario
+        $sql = "SELECT COUNT(idHorario) AS 'Joe' FROM tbhorario WHERE dias ='" . $horario->diaHorario
+                . "' AND idEmpleadoHorario = " . $horario->idEmpleadoHorario
+                . " AND horaInicio ='" . $horario->horaInicio . "';";
 
-        $query = "insert into tbhorario values(" . $this->utilidad->generarIdAutoIncremental('idHorario', 'tbhorario') . ", "
-                . $horario->idEmpleadoHorario . ", '" . $horario->diaHorario . "', '"
-                . $horario->horaInicio . "', '" . $horario->horaSalida . "', '" . $horario->totalHoras . "');";
+        $busqueda = mysqli_query($this->conexion->abrirConexion(), $sql);
 
-        $result = mysqli_query($this->conexion->abrirConexion(), $query);
+        $fila = $busqueda->fetch_array();
+        // se cuenta el numero de filas que dio como resultado la consulta 
+        if ($fila["Joe"] == 0) {
+            //se hace la insercion porque no existe ese horario aun
 
-        $this->conexion->cerrarConexion();
+            $query = "insert into tbhorario values(" . $this->utilidad->generarIdAutoIncremental('idHorario', 'tbhorario') . ", "
+                    . $horario->idEmpleadoHorario . ", '" . $horario->diaHorario . "', '"
+                    . $horario->horaInicio . "', '" . $horario->horaSalida . "', '" . $horario->totalHoras . "');";
 
-        if ($result) {
-            return true;
+            $result = mysqli_query($this->conexion->abrirConexion(), $query);
+
+            $this->conexion->cerrarConexion();
+
+            if ($result) {
+                return 1; // se inserto correctamente
+            } else {
+                return 3;// error al insertar
+            }
         } else {
-            return false;
+            $this->conexion->cerrarConexion();
+
+            return 2; // ya exite
         }
     }
 
-    //Metodo para eliminara un horario
+//Metodo para eliminara un horario
     public function deleteHorario($idHorario) {
         $query = "delete from tbhorario where idHorario=" . $idHorario . ";";
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
@@ -49,7 +66,7 @@ class horarioData {
         }
     }
 
-    //Metodo para actualizar un horario
+//Metodo para actualizar un horario
     public function updateHorario($horario) {
         $query = "update tbhorario set idEmpleadoHorario=" . $horario->idEmpleadoHorario
                 . ", dias='" . $horario->diaHorario . "', horaInicio='" . $horario->horaInicio
@@ -66,7 +83,7 @@ class horarioData {
         }
     }
 
-    //Metodo para obtener todos los horarios
+//Metodo para obtener todos los horarios
     public function getHorarios() {
 
         $query = "select* from tbhorario";
@@ -84,7 +101,7 @@ class horarioData {
         return $arrayHorarios;
     }
 
-    //metodo par abuscar un solo horario por id
+//metodo par abuscar un solo horario por id
     public function buscarHorario($idHorario) {
         $query = "SELECT * FROM tbhorario WHERE(idHorario =" . $idHorario . ")";
         $resulGeneral = mysqli_query($this->conexion->abrirConexion(), $query);
@@ -98,7 +115,7 @@ class horarioData {
         return $salario;
     }
 
-    //metodo para traer los empleados
+//metodo para traer los empleados
     public function buscarEmpleadoHorario($idEmpleado) {
         $query = "SELECT * FROM tbempleado WHERE(idEmpleado =" . $idEmpleado . ")";
         $resulGeneral = mysqli_query($this->conexion->abrirConexion(), $query);
@@ -111,7 +128,7 @@ class horarioData {
         return $empleado;
     }
 
-    //Metodo para obtener todos los horarios
+//Metodo para obtener todos los horarios
     public function buscarHorarioDeEmpleado($idEmpleado) {
         $query = "SELECT * FROM tbhorario WHERE (idEmpleadoHorario =" . $idEmpleado . ")";
         $result = mysqli_query($this->conexion->abrirConexion(), $query);

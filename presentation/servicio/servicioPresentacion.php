@@ -52,14 +52,14 @@
                         <td><label for="numBoucher">Numero de Boucher:</label></td>
                         <td><input type="text" value="" name="txtNumBoucher" id="txtNumBoucher"><br></td>
                     </tr>
-                    <tr id="trFechaPago" style="display:none">
-                       <td><label for="fechaPago">Fecha Pago:</label></td>
-                        <td><input type="text" value="" name="txtFechaPago" id="txtFechaPago"><br></td>
-                    </tr>
                     <tr>
                         <td><label for="cargosExtra">Cargos Extra:</label></td>
                         <td><input type="text" id="txtCargosExtra" name="txtCargosExtra" class="currency" onchange="mostrarTotal();"></td>
                     </tr>
+                    <tr>
+                        <td><label for="descripcionCargoExtra">Descripción Por Cargos Extra:</label></td>
+                        <td><textarea rows="4" cols="22" value="" id="txtDescripcionCargoExtra"></textarea></td>
+                    </tr>   
                     <tr>
                         <td><label for="descripcionServicio">Descripción del Servicio:</label></td>
                         <td><textarea rows="4" cols="22" value="" id="txtDescripcionServicio"></textarea></td>

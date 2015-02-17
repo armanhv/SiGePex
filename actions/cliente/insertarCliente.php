@@ -7,12 +7,12 @@ include '../../business/clienteBusiness.php';
 $nombreCliente = $_POST['nombreCliente'];
 $primerApellido = $_POST['primerApellido'];
 $segundoApellido = $_POST['segundoApellido'];
-$direccion = $_POST['direccion'];
+
 //comunucacion con Business
 $clienteBusiness = new clienteBusiness();
 
 
-$newCliente = new cliente(0, $nombreCliente, $primerApellido, $segundoApellido, $direccion);
+$newCliente = new cliente(0, $nombreCliente, $primerApellido, $segundoApellido);
 
 //echo $idEmpleado . ' - ' . $nombreBanco . ' - ' . $numeroCuenta . ' - ' . $tipoCuenta . ' - ' . $numeroSimpe;
 

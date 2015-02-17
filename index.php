@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title>Pagina Principal</title>
     </head>
     <body>
         <a href="presentation/rol/rolPresentacion.php">Rol</a>
@@ -21,6 +21,8 @@
         <br>
         <a href="presentation/cliente/clientePresentacion.php">Cliente</a>
         <br>
+        <a href="presentation/credito/creditoPresentacion.php">Crédito</a>
+        <br>
         <a href="presentation/ingresos/ingresosPresentacion.php">Ingreso</a>
         <br>
         <a href="presentation/cuentasPorCobrar/cuentasPorCobrarPresentacion.php">Cuentas por cobrar</a>
@@ -32,6 +34,8 @@
         <a href="presentation/tipoServicio/tipoServicioPresentacion.php">Tipo de Servicio</a>
         <br>
         <a href="presentation/servicio/servicioPresentacion.php">Servicio</a>
+        <br>
+        <a href="presentation/servicio/serviciosPendientes.php">Servicios Pendientes</a>
         <br>
     </body>
 </html>

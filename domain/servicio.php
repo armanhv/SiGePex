@@ -11,8 +11,10 @@ class servicio {
     public $formaDePago;
     public $cargosExtra;
     public $total;
+    public $estadoServicio;
+    public $descripcionCargoExtra;
 
-    public function servicio($idServicio, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago,$cargosExtra, $total) {
+    public function servicio($idServicio, $idCliente, $idEmpleado, $idTipoServicio, $descripcionServicio, $fechaServicio, $formaDePago, $cargosExtra, $total, $estadoServicio, $descripcionCargoExtra) {
         $this->idServicio = $idServicio;
         $this->idCliente = $idCliente;
         $this->idEmpleado = $idEmpleado;
@@ -22,6 +24,8 @@ class servicio {
         $this->formaDePago = $formaDePago;
         $this->cargosExtra = $cargosExtra;
         $this->total = $total;
+        $this->estadoServicio = $estadoServicio;
+        $this->descripcionCargoExtra = $descripcionCargoExtra;
     }
 
 }

@@ -18,13 +18,13 @@
                 <tr>
                     <td><label for="Dias">Día(s) de Trabajo:</label></td>
                     <td>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Lunes">Lunes<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Martes">Martes<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Miércoles">Miércoles<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Jueves">Jueves<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Viernes">Viernes<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Sábado">Sábado<br>
-                        <input type="radio" id="rbnDias" name="rbnDias" value="Domingo">Domingo<br>
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Lunes"/>Lunes <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Martes"/>Martes <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Miércoles"/>Miércoles <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Jueves"/>Jueves <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Viernes"/>Viernes <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Sábado"/>Sábado <br />
+                        <input type="checkbox" class="chbDias" name="chbDias" value="Domingo"/>Domingo <br />
                     </td>
                 <tr>
                     <td></td>

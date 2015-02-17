@@ -82,6 +82,10 @@
                     <td><label for="password">Contraseña:</label></td>
                     <td><input type="password" value="" id="txtPassword"></td>
                 </tr>
+                 <tr>
+                    <td><label for="passwordConfirmar">Confirmar Contraseña:</label></td>
+                    <td><input type="password" value="" id="txtConfirmarPassword"></td>
+                </tr>
                 <tr>
                     <td><label for="CantidadHorasLaborales">Horas laborales:</label></td>
                     <td><input type="text" value=""  id="txtCantidadHorasLaborales"></td>

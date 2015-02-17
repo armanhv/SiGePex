@@ -5,8 +5,7 @@ function insertarCliente() {
         var parametros = {
             "nombreCliente": depurarTexto($('#txtNombreCliente').val()),
             "primerApellido": depurarTexto($('#txtPrimerApellido').val()),
-            "segundoApellido": depurarTexto($('#txtSegundoApellido').val()),
-            "direccion": $('#txtDireccion').val()
+            "segundoApellido": depurarTexto($('#txtSegundoApellido').val())
         };
 
         if (confirm("¿ Desea ingresar este cliente ?")) {
@@ -36,8 +35,7 @@ function actualizarCliente() {
             "idCliente": idCliente,
             "nombreCliente": $('#txtNombreCliente').val(),
             "primerApellido": $('#txtPrimerApellido').val(),
-            "segundoApellido": $('#txtSegundoApellido').val(),
-            "direccion": $('#txtDireccion').val()
+            "segundoApellido": $('#txtSegundoApellido').val()
         };
 
         if (confirm("¿ Desea modificar este cliente ?")) {
@@ -64,18 +62,20 @@ function borrarCliente() {
         "idCliente": idCliente
     };
 
-    $.ajax({
-        data: parametros,
-        url: '../../actions/cliente/borrarCliente.php',
-        type: 'post',
-        success: function (response) {
-            //se recarga el combo y limpan los espacios
-            $('input[type=text]').val("");
-            $('#txtDireccion').val("");
-            obtenerClientes();
-            $("#resultado").html(response);
-        }
-    });
+    if (confirm("¿ Desea borrar este cliente ?")) {
+        $.ajax({
+            data: parametros,
+            url: '../../actions/cliente/borrarCliente.php',
+            type: 'post',
+            success: function (response) {
+                //se recarga el combo y limpan los espacios
+                $('input[type=text]').val("");
+                $('#txtDireccion').val("");
+                obtenerClientes();
+                $("#resultado").html(response);
+            }
+        });
+    }
 }
 
 function obtenerClientes() {
@@ -138,11 +138,11 @@ function verificarCliente() {
         return false;
     }
 
-    if ($.trim(direccion) === '') {
-        mandarMensaje("La dirección es inválida");
-        txtDireccion.focus();
-        return false;
-    }
+//    if ($.trim(direccion) === '') {
+//        mandarMensaje("La dirección es inválida");
+//        txtDireccion.focus();
+//        return false;
+//    }
 
     return true;
 }

@@ -35,4 +35,19 @@ class servicioBusines {
         $salario = $this->servicioData->buscarServicio($idServicio);
         return $salario;
     }
+    
+    public function obtenerEmpleadosConServicios() {
+        $salario = $this->servicioData->obtenerEmpleadosConServicios();
+        return $salario;
+    }
+    
+    public function obtenerServiciosDeEmpleado($idEmpleado) {
+        $salario = $this->servicioData->obtenerServiciosDeEmpleado($idEmpleado);
+        return $salario;
+    }
+    
+    public function actualizarEstadoServicio($idServicio) {
+        $salario = $this->servicioData->actualizarEstadoServicio($idServicio);
+        return $salario;
+    }
 }

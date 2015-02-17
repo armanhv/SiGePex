@@ -16,7 +16,7 @@ class clienteData {
 
     public function insertarCliente($objCliente) {
 
-        $query = "INSERT INTO btcliente VALUES (" . $this->utilidad->generarIdAutoIncremental('idCliente', 'btcliente') . ", '" . $objCliente->nombreCliente . "', '" . $objCliente->primerApellido . "','" . $objCliente->segundoApellido . "','" . $objCliente->direccion . "');";
+        $query = "INSERT INTO btcliente VALUES (" . $this->utilidad->generarIdAutoIncremental('idCliente', 'btcliente') . ", '" . $objCliente->nombreCliente . "', '" . $objCliente->primerApellido . "','" . $objCliente->segundoApellido . "');";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
 
@@ -32,7 +32,7 @@ class clienteData {
     public function actualizarCliente($objCliente) {
 
         $query = "update btcliente set nombreCliente='" . $objCliente->nombreCliente . "', primerApellido='" . $objCliente->primerApellido .
-                "', segundoApellido='" . $objCliente->segundoApellido . "', direccion='" . $objCliente->direccion . "' where idCliente=" . $objCliente->idCliente . ";";
+                "', segundoApellido='" . $objCliente->segundoApellido . "' where idCliente=" . $objCliente->idCliente . ";";
 
         $result = mysqli_query($this->conexion->abrirConexion(), $query);
 
@@ -65,7 +65,7 @@ class clienteData {
         $arrayCliente = [];
 
         while ($row = mysqli_fetch_array($result)) {
-            $clienteActual = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido'], $row['direccion']);
+            $clienteActual = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido']);
             array_push($arrayCliente, $clienteActual);
         }
 
@@ -80,7 +80,7 @@ class clienteData {
 
         $row = $resulGeneral->fetch_array();
 
-        $cliente = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido'], $row['direccion']);
+        $cliente = new cliente($row['idCliente'], $row['nombreCliente'], $row['primerApellido'], $row['segundoApellido']);
 
         $this->conexion->cerrarConexion();
         return $cliente;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of difHoras
- *
- * @author Joseph
- */
 class difHoras {
 
     private $dif;

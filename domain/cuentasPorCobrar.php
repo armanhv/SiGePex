@@ -1,6 +1,4 @@
-
 <?php
-include_once '../../domain/ingresos.php';
 
 class cuentasPorCobrar {
 
@@ -8,15 +6,13 @@ class cuentasPorCobrar {
     public $idCuentasPorCobrar;
     public $idEmpleado;
     public $idCliente;
-    public $fechaPago;
     public $monto;
 
     //Metodo constructor 
-    public function cuentasPorCobrar ($idCuentasPorCobrar, $idEmpleado, $idCliente, $fechaPago, $monto) {
+    public function cuentasPorCobrar ($idCuentasPorCobrar, $idEmpleado, $idCliente, $monto) {
         $this->idCuentasPorCobrar = $idCuentasPorCobrar;
         $this->idEmpleado = $idEmpleado;
         $this->idCliente = $idCliente;
-        $this->fechaPago = $fechaPago;
         $this->monto = $monto;
     }
 

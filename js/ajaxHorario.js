@@ -2,7 +2,7 @@
 function insertarHorario() {
     if (validarHorario()) {
 
-        var dia = $('input:radio[name=rbnDias]:checked').val();
+        var dias = obtenerDias();
         var idEmpleado = document.getElementById("cbxEmpleado").value;
         var horaInicio = document.getElementById("cbxHoraInicio").value;
         var horaInicioMinuto = document.getElementById('cbxHoraInicioMinutos').value;
@@ -11,7 +11,7 @@ function insertarHorario() {
 
         var parametros = {
             "idEmpleado": idEmpleado,
-            "dias": dia,
+            "dias": dias,
             "horaInicio": horaInicio + ':' + horaInicioMinuto,
             "horaSalida": horaSalida + ':' + horaSalidaMinuto
         };
@@ -28,7 +28,7 @@ function insertarHorario() {
                     $("#cbxHoraInicioMinutos").val("00");
                     $("#cbxHoraSalida").val("08");
                     $("#cbxHoraSalidaMinutos").val("00");
-                    $('input:radio[name=rbnDias]:checked').removeAttr("checked");
+                    $("input[name='chbDias']:checked").removeAttr("checked");
                     $("#resultado").html(response);
                 }
             });
@@ -55,7 +55,7 @@ function borrarHorario() {
                 $("#cbxHoraInicioMinutos").val("00");
                 $("#cbxHoraSalida").val("08");
                 $("#cbxHoraSalidaMinutos").val("00");
-                $('input:radio[name=rbnDias]:checked').removeAttr("checked");
+                $("input[name='chbDias']:checked").removeAttr("checked");
                 $("#resultado").html(response);
             }
         });
@@ -92,9 +92,7 @@ function obtenerEmpleadosHorario() {
 
 function validarHorario() {
     var idEmpleado = document.getElementById("cbxEmpleado").value;
-    var dia = $('input:radio[name=rbnDias]:checked').val();
-
-    //alert(dia);
+    var dia = $("input[name='chbDias']:checked").length;
 
     if (idEmpleado === '0') {
         mandarMensaje("Debe elegir un empleado.");
@@ -102,10 +100,25 @@ function validarHorario() {
         return false;
     }
 
-    if (typeof (dia) === "undefined") {
+    if (dia === 0) {
         mandarMensaje("Debe elegir un día.");
         return false;
     }
 
     return true;
+}
+
+function obtenerDias() {
+
+    var tamaño = $("input[name='chbDias']:checked").length;//cantidad seleccionada
+    var chkArray = [];
+
+    // ver los checkboxs de la clase 'chbDias' q estan seleccionados
+    $(".chbDias:checked").each(function () {
+        chkArray.push($(this).val());
+    });
+
+    var dias = chkArray.join(',');//separamos todo en el arreglo por una coma
+
+    return dias;
 }
